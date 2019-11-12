@@ -1,7 +1,6 @@
 *~
 outfile.sh
-./**/*.project
-./codelite/**
+*.project
 *.workspace
-./codelite
+./codelite/
 
