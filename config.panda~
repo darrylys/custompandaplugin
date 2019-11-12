@@ -1,0 +1,12 @@
+.
+./bufmon2
+./unpldet
+./rootkit_detector_ssdt
+./disasm_tracer
+./tracememory
+./rootkit_detector_eprocess
+./disasm_insn_tracer
+./winxpsp3x86_api_logger
+./asidviewer
+./win_binary_unpacker
+./mem_logger

@@ -1,0 +1,54 @@
+
+# this is a comment
+# comment can only be inline
+# use \# to escape the hashtag if required
+
+# format:
+# dll_name,rva(hex),ord(dec),return type,call convention,func_name,[in|out|inout,param type,param name]*
+
+#extern HOOKDEF(HHOOK, WINAPI, SetWindowsHookExA,
+#    __in  int idHook,
+#    __in  HOOKPROC lpfn,
+#    __in  HINSTANCE hMod,
+#    __in  DWORD dwThreadId
+#);
+#4b641 SetWindowsHookA 2230
+user32.dll,0x4b641,2230,HHOOK,WINAPI,SetWindowsHookExA,in,int,idHook,in,HOOKPROC,lpfn,in,HINSTANCE,hMod,in,DWORD,dwThreadId
+
+#extern HOOKDEF(NTSTATUS, WINAPI, NtDeleteFile,
+#    __in  POBJECT_ATTRIBUTES ObjectAttributes
+#);
+# use */[] for pointers / arrays respectively.
+ntdll.dll,0x45808,280,NTSTATUS,WINAPI,NtDeleteFile,in,OBJECT_ATTRIBUTES*,ObjectAttributes
+
+#extern HOOKDEF(NTSTATUS, WINAPI, NtDelayExecution,
+#    __in    BOOLEAN Alertable,
+#    __in    PLARGE_INTEGER DelayInterval
+#);
+ntdll.dll,0x457c8,276,NTSTATUS,WINAPI,NtDelayExecution,in,BOOLEAN,Alertable,in,LARGE_INTEGER*,DelayInterval
+
+#extern HOOKDEF(NTSTATUS, WINAPI, NtOpenThread,
+#    __out  PHANDLE ThreadHandle,
+#    __in   ACCESS_MASK DesiredAccess,
+#    __in   POBJECT_ATTRIBUTES ObjectAttributes,
+#    __in   PCLIENT_ID ClientId
+#);
+ntdll.dll,0x45e08,377,NTSTATUS,WINAPI,NtOpenThread,out,HANDLE*,ThreadHandle,in,ACCESS_MASK,DesiredAccess,in,OBJECT_ATTRIBUTES*,ObjectAttributes,in,CLIENT_ID*,ClientId
+
+#extern HOOKDEF(int, WSAAPI, getaddrinfo,
+#    _In_opt_  PCSTR pNodeName,
+#    _In_opt_  PCSTR pServiceName,
+#    _In_opt_ ADDRINFOA *pHints,
+#    _Out_     PADDRINFOA *ppResult
+#);
+ws2_32.dll,0x4296,163,int,WSAAPI,getaddrinfo,in,PCSTR,pNodeName,in,PCSTR,pServiceName,in,ADDRINFOA*,pHints,out,ADDRINFOA**,ppResult
+
+#extern HOOKDEF(DWORD, WINAPI, GetVersion,
+#    void
+#);
+kernel32.dll,0x4154e,675,DWORD,WINAPI,GetVersion
+
+advapi32.dll,0x12345,1000,DWORD,WINAPI,SameFunc,in,STR*,word
+
+kernel32.dll,0x67890,1240,DWORD,WINAPI,SameFunc,in,HANDLE*,pHandle,in,INT,Length
+

@@ -1,0 +1,8 @@
+
+#string test
+
+PSTR,string,1,z
+PWSTR,string,2,z
+BSTR,string,1,b,1
+BWSTR,string,2,b,1
+

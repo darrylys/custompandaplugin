@@ -1,0 +1,11 @@
+
+#test
+#comment
+
+# format:
+# name,,size,s|u
+
+int32,,4,s
+uint32,,4,u
+uint64,,8,u
+*,,4,u

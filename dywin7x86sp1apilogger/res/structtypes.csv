@@ -1,0 +1,9 @@
+# format: <name>,struct,size,[offset,type,name]*
+
+#struct test
+#typedef struct _UNICODE_STRING {
+#    USHORT Length;
+#    USHORT MaximumLength;
+#    PWSTR  Buffer;
+#} UNICODE_STRING, *PUNICODE_STRING;
+UNICODE_STRING,struct,8,0,USHORT,Buffer_Length,2,USHORT,MaximumLength,4,PWSTR,Buffer

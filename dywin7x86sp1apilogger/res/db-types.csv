@@ -1,0 +1,810 @@
+uint32_t,,4,u
+int32_t,,4,s
+uint8_t,,1,u
+int8_t,,1,s
+uint16_t,,2,u
+int16_t,,2,s
+uint64_t,,8,u
+int64_t,,8,s
+LONG,,4,s
+ULONG,,4,u
+WORD,,2,u
+DWORD,,4,u
+INT,,4,s
+FILE_INFORMATION_CLASS,,4,u
+HHOOK,,4,u
+LPWSAOVERLAPPED_COMPLETION_ROUTINE,,4,u
+ULONG_PTR,,4,u
+LPTRANSMIT_FILE_BUFFERS,,4,u
+SIZE_T,,4,u
+SOCKET,,4,u
+FINDEX_INFO_LEVELS,,4,u
+SHELLEXECUTEINFOW,,4,u
+NTSTATUS,,4,u
+PVOID,,4,u
+USHORT,,2,u
+PFILE,,4,u
+MSGBOXCALLBACK,,4,u
+HANDLE,,4,u
+HMODULE,,4,u
+PUNKNOWN,,4,u
+HKEY,,4,u
+FINDEX_SEARCH_OPS,,4,u
+BYTE,,1,u
+HINTERNET,,4,u
+CONTEXT,,4,u
+PCONTEXT,,4,u
+PINITIAL_TEB,,4,u
+UINT,,4,u
+GROUP,,4,u
+KEY_VALUE_INFORMATION_CLASS,,4,u
+ACCESS_MASK,,4,u
+HWND,,4,u
+PPROGRESS_ROUTINE,,4,u
+KEY_INFORMATION_CLASS,,4,u
+HINSTANCE,,4,u
+INTERNET_PORT,,4,u
+BOOLEAN,,4,u
+BOOL,,4,u
+REGSAM,,4,u
+HOOKPROC,,4,u
+PTHREAD_START_ROUTINE,,4,u
+DWORD_PTR,,4,u
+PIO_APC_ROUTINE,,4,u
+SC_HANDLE,,4,u
+*,,4,u
+
+CHAR,string,1,z
+STR,string,1,z
+WSTR,string,2,z
+BSTR,string,1,b,1
+BWSTR,string,2,b,1
+
+#typedef struct tagPOINT1 {
+#  /*0*/LONG x;
+#  /*4*/LONG y;
+#} POINT, *PPOINT;
+POINT,struct,8,0,LONG,x,4,LONG,y
+
+#typedef struct _struct_in_addr {
+#    uint32_t s_addr;
+#} struct_in_addr, *Pstruct_in_addr;
+in_addr,struct,4,0,uint32_t,s_addr
+
+#typedef struct _struct_sockaddr_in {
+#    000 int16_t            sin_family;
+#    002 uint16_t   sin_port;
+#    004 struct_in_addr   sin_addr;
+#    008 int8_t             sin_zero[8];
+#} struct_sockaddr_in, *Pstruct_sockaddr_in;
+# replace int8_t 8-array with uint64_t 
+sockaddr_in,struct,16,0,int16_t,sin_family,2,uint16_t,sin_port,4,in_addr,sin_addr,8,uint64_t,sin_zero
+
+#typedef struct _struct_sockaddr {
+#    000 int16_t            sin_family;
+#    002 uint16_t   sin_port;
+#    004 struct_in_addr   sin_addr;
+#    008 int8_t             sin_zero[8];
+#} struct_sockaddr, *Pstruct_sockaddr;
+sockaddr,struct,16,0,int16_t,sin_family,2,uint16_t,sin_port,4,in_addr,sin_addr,8,uint64_t,sin_zero
+
+#typedef struct _OSVERSIONINFOEXA {
+#    000 DWORD dwOSVersionInfoSize;
+#    004 DWORD dwMajorVersion;
+#    008 DWORD dwMinorVersion;
+#    012 DWORD dwBuildNumber;
+#    016 DWORD dwPlatformId;
+#    020 CHAR   szCSDVersion[128];
+#    148 WORD   wServicePackMajor;
+#    150 WORD   wServicePackMinor;
+#    152 WORD   wSuiteMask;
+#    154 BYTE  wProductType;
+#    155 BYTE  wReserved;
+#} OSVERSIONINFOEXA, *POSVERSIONINFOEXA;
+OSVERSIONINFOEXA,struct,156,0,DWORD,dwOSVersionInfoSize,4,DWORD,dwMajorVersion,8,DWORD,dwMinorVersion,12,DWORD,dwBuildNumber,16,DWORD,dwPlatformId,20,STR,szCSDVersion,148,WORD,wServicePackMajor,150,WORD,wServicePackMinor,152,WORD,wSuiteMask,154,BYTE,wProductType,155,BYTE,wReserved
+
+#typedef struct _OSVERSIONINFOEXW {
+#    000 DWORD dwOSVersionInfoSize;
+#    004 DWORD dwMajorVersion;
+#    008 DWORD dwMinorVersion;
+#    012 DWORD dwBuildNumber;
+#    016 DWORD dwPlatformId;
+#    020 WCHAR  szCSDVersion[128];
+#    276 WORD   wServicePackMajor;
+#    278 WORD   wServicePackMinor;
+#    280 WORD   wSuiteMask;
+#    282 BYTE  wProductType;
+#    283 BYTE  wReserved;
+#} OSVERSIONINFOEXW, *POSVERSIONINFOEXW;
+OSVERSIONINFOEXW,struct,284,0,DWORD,dwOSVersionInfoSize,4,DWORD,dwMajorVersion,8,DWORD,dwMinorVersion,12,DWORD,dwBuildNumber,16,DWORD,dwPlatformId,20,WSTR,szCSDVersion,276,WORD,wServicePackMajor,278,WORD,wServicePackMinor,280,WORD,wSuiteMask,282,BYTE,wProductType,283,BYTE,wReserved
+
+#typedef struct _STRING {
+#    000 USHORT Length;
+#    002 USHORT MaximumLength;
+#    004 PCHAR  Buffer;
+#} ANSI_STRING, *PANSI_STRING;
+ANSI_STRING,struct,8,0,USHORT,Length,2,USHORT,MaximumLength,4,STR*,Buffer
+
+#typedef struct _UNICODE_STRING {
+#    USHORT Length;
+#    USHORT MaximumLength;
+#    PWSTR  Buffer;
+#} UNICODE_STRING, *PUNICODE_STRING;
+UNICODE_STRING,struct,8,0,USHORT,Length,2,USHORT,MaximumLength,4,WSTR*,Buffer
+
+#typedef struct _IO_STATUS_BLOCK {
+#    PVOID Data;
+#} IO_STATUS_BLOCK, *PIO_STATUS_BLOCK;
+IO_STATUS_BLOCK,struct,4,0,PVOID,Data
+
+#typedef struct _OBJECT_ATTRIBUTES {
+#    ULONG           Length;
+#    HANDLE          RootDirectory;
+#    PUNICODE_STRING ObjectName;
+#    ULONG           Attributes;
+#    PVOID           SecurityDescriptor;
+#    PVOID           SecurityQualityOfService;
+#} OBJECT_ATTRIBUTES, *POBJECT_ATTRIBUTES;
+OBJECT_ATTRIBUTES,struct,24,0,ULONG,Length,4,HANDLE,RootDirectory,8,UNICODE_STRING*,ObjectName,12,ULONG,Attributes,16,PVOID,SecurityDescriptor,20,PVOID,SecurityQualityOfService
+
+#typedef struct _RTL_USER_PROCESS_PARAMETERS {
+#  000 BYTE Reserved1[16];
+#  016 PVOID Reserved2[10];
+#  056 UNICODE_STRING ImagePathName;
+#  064 UNICODE_STRING CommandLine;
+#} RTL_USER_PROCESS_PARAMETERS, *PRTL_USER_PROCESS_PARAMETERS;
+RTL_USER_PROCESS_PARAMETERS,struct,72,56,UNICODE_STRING,ImagePathName,64,UNICODE_STRING,CommandLine
+
+#typedef struct _LARGE_INTEGER {
+#  int64_t QuadPart;
+#} LARGE_INTEGER, *PLARGE_INTEGER;
+LARGE_INTEGER,struct,64,0,int64_t,QuadPart
+
+#typedef struct _ULARGE_INTEGER {
+#  uint64_t QuadPart;
+#} ULARGE_INTEGER, *PULARGE_INTEGER;
+ULARGE_INTEGER,struct,64,0,uint64_t,QuadPart
+
+#typedef struct struct_timeval {
+#  int32_t tv_sec;
+#  int32_t tv_usec;
+#} struct_timeval, *Pstruct_timeval;
+timeval,struct,8,0,int32_t,tv_sec,4,int32_t,tv_usec
+
+#typedef struct _CLIENT_ID {
+#    PVOID UniqueProcess;
+#    PVOID UniqueThread;
+#} CLIENT_ID, *PCLIENT_ID;
+CLIENT_ID,struct,8,0,PVOID,UniqueProcess,4,PVOID,UniqueThread
+
+#typedef struct _SECTION_IMAGE_INFORMATION {
+#    000 uint32_t               TransferAddress;
+#    004 uint32_t            ZeroBits;
+#    008 uint8_t             _PADDING0_[0x4];
+#    012 uint64_t            MaximumStackSize;
+#    020 uint64_t            CommittedStackSize;
+#    028 uint32_t            SubSystemType;
+#    032 uint32_t        SubSystemVersion;
+#    036 uint32_t            GpValue;
+#    040 uint16_t            ImageCharacteristics;
+#    042 uint16_t            DllCharacteristics;
+#    044 uint16_t            Machine;
+#    046 uint8_t             ImageContainsCode;
+#    047 uint8_t         ImageFlags;
+#    048 uint32_t            LoaderFlags;
+#    052 uint32_t            ImageFileSize;
+#    056 uint32_t            CheckSum;
+#    060
+#} SECTION_IMAGE_INFORMATION, *PSECTION_IMAGE_INFORMATION;
+SECTION_IMAGE_INFORMATION,struct,60,0,uint32_t,TransferAddress,4,uint32_t,ZeroBits,12,uint64_t,MaximumStackSize,20,uint64_t,CommittedStackSize,28,uint32_t,SubSystemType,32,uint32_t,SubSystemVersion,36,uint32_t,GpValue,40,uint16_t,ImageCharacteristics,42,uint16_t,DllCharacteristics,44,uint16_t,Machine,46,uint8_t,ImageContainsCode,47,uint8_t,ImageFlags,48,uint32_t,LoaderFlags,52,uint32_t,ImageFileSize,56,uint32_t,CheckSum
+
+#typedef struct _RTL_USER_PROCESS_INFORMATION {
+#    000 ULONG Size;
+#    004 HANDLE ProcessHandle;
+#    008 HANDLE ThreadHandle;
+#    012 CLIENT_ID ClientId;
+#    020 SECTION_IMAGE_INFORMATION ImageInformation;
+#    080
+#} RTL_USER_PROCESS_INFORMATION, *PRTL_USER_PROCESS_INFORMATION;
+RTL_USER_PROCESS_INFORMATION,struct,80,0,ULONG,Size,4,HANDLE,ProcessHandle,8,HANDLE,ThreadHandle,12,CLIENT_ID,ClientId,20,SECTION_IMAGE_INFORMATION,ImageInformation
+
+#typedef struct tagMSGBOXPARAMSA {
+#    000 UINT        cbSize;
+#    004 HWND        hwndOwner;
+#    008 HINSTANCE   hInstance;
+#    012 PSTR      lpszText;
+#    016 PSTR      lpszCaption;
+#    020 DWORD       dwStyle;
+#    024 PSTR      lpszIcon;
+#    028 DWORD_PTR   dwContextHelpId;
+#    032 MSGBOXCALLBACK      lpfnMsgBoxCallback;
+#    036 DWORD       dwLanguageId;
+#    040
+#} MSGBOXPARAMSA, *PMSGBOXPARAMSA;
+MSGBOXPARAMSA,struct,40,0,UINT,cbSize,4,HWND,hwndOwner,8,HINSTANCE,hInstance,12,STR*,lpszText,16,STR*,lpszCaption,20,DWORD,dwStyle,24,STR*,lpszIcon,28,DWORD_PTR,dwContextHelpId,32,MSGBOXCALLBACK,lpfnMsgBoxCallback,36,DWORD,dwLanguageId
+
+#typedef struct tagMSGBOXPARAMSW {
+#    000 UINT        cbSize;
+#    004 HWND        hwndOwner;
+#    008 HINSTANCE   hInstance;
+#    012 PWSTR     lpszText;
+#    016 PWSTR     lpszCaption;
+#    020 DWORD       dwStyle;
+#    024 PWSTR     lpszIcon;
+#    028 DWORD_PTR   dwContextHelpId;
+#    032 MSGBOXCALLBACK      lpfnMsgBoxCallback;
+#    036 DWORD       dwLanguageId;
+#    040
+#} MSGBOXPARAMSW, *PMSGBOXPARAMSW;
+MSGBOXPARAMSW,struct,40,0,UINT,cbSize,4,HWND,hwndOwner,8,HINSTANCE,hInstance,12,WSTR*,lpszText,16,WSTR*,lpszCaption,20,DWORD,dwStyle,24,WSTR*,lpszIcon,28,DWORD_PTR,dwContextHelpId,32,MSGBOXCALLBACK,lpfnMsgBoxCallback,36,DWORD,dwLanguageId
+
+#typedef struct addrinfo {
+#  000 int             ai_flags;
+#  004 int             ai_family;
+#  008 int             ai_socktype;
+#  012 int             ai_protocol;
+#  016 size_t          ai_addrlen;
+#  020 char            *ai_canonname;
+#  024 struct sockaddr  *ai_addr;
+#  028 struct addrinfo  *ai_next;
+#  032
+#} ADDRINFOA, *PADDRINFOA;
+# ai_next is not added here, no infinite loop!
+ADDRINFOA,struct,32,0,int,ai_flags,4,int,ai_family,8,int,ai_socktype,12,int,ai_protocol,16,size_t,ai_addrlen,20,STR*,ai_canonname,24,sockaddr*,ai_addr
+
+#typedef struct addrinfoW {
+#  int              ai_flags;
+#  int              ai_family;
+#  int              ai_socktype;
+#  int              ai_protocol;
+#  size_t           ai_addrlen;
+#  PWSTR            ai_canonname;
+#  struct sockaddr  *ai_addr;
+#  struct addrinfoW *ai_next;
+#} ADDRINFOW, *PADDRINFOW;
+ADDRINFOW,struct,32,0,int,ai_flags,4,int,ai_family,8,int,ai_socktype,12,int,ai_protocol,16,size_t,ai_addrlen,20,WSTR*,ai_canonname,24,sockaddr*,ai_addr
+
+#typedef struct _PS_ATTRIBUTE
+#{
+#    000 ULONG Attribute;
+#    004 SIZE_T Size;
+#    008 union
+#    {
+#        ULONG Value;
+#        PVOID ValuePtr;
+#    };
+#    012 PSIZE_T ReturnLength;
+#    016
+#} PS_ATTRIBUTE, *PPS_ATTRIBUTE;
+PS_ATTRIBUTE,struct,16,0,ULONG,Attribute,4,SIZE_T,Size,8,ULONG,Value,12,SIZE_T*,ReturnLength
+
+#typedef struct _PS_ATTRIBUTE_LIST
+#{
+#    SIZE_T TotalLength;
+#    PS_ATTRIBUTE Attributes[1];
+#} PS_ATTRIBUTE_LIST, *PPS_ATTRIBUTE_LIST;
+PS_ATTRIBUTE_LIST,struct,12,0,SIZE_T,TotalLength,4,PS_ATTRIBUTE*,Attributes
+
+#typedef struct _SERVICE_STATUS {
+#  000 DWORD dwServiceType;
+#  004 DWORD dwCurrentState;
+#  008 DWORD dwControlsAccepted;
+#  012 DWORD dwWin32ExitCode;
+#  016 DWORD dwServiceSpecificExitCode;
+#  020 DWORD dwCheckPoint;
+#  024 DWORD dwWaitHint;
+#  028
+#} SERVICE_STATUS, *LPSERVICE_STATUS;
+SERVICE_STATUS,struct,28,0,DWORD,dwServiceType,4,DWORD,dwCurrentState,8,DWORD,dwControlsAccepted,12,DWORD,dwWin32ExitCode,16,DWORD,dwServiceSpecificExitCode,20,DWORD,dwCheckPoint,24,DWORD,dwWaitHint
+
+#typedef struct _SYSTEMTIME {
+#  000 WORD wYear;
+#  002 WORD wMonth;
+#  004 WORD wDayOfWeek;
+#  006 WORD wDay;
+#  008 WORD wHour;
+#  010 WORD wMinute;
+#  012 WORD wSecond;
+#  014 WORD wMilliseconds;
+#  016
+#} SYSTEMTIME, *PSYSTEMTIME;
+SYSTEMTIME,struct,16,0,WORD,year,2,WORD,month,4,WORD,dayOfWeek,6,WORD,day,8,WORD,hr,10,WORD,min,12,WORD,sec,14,WORD,ms
+
+#typedef struct _WSABUF {
+#  ULONG len;
+#  CHAR  *buf;
+#} WSABUF, *LPWSABUF;
+WSABUF,struct,8,0,ULONG,len,4,STR*,buf
+
+#typedef enum _PS_CREATE_STATE
+#{
+#    PsCreateInitialState,
+#    PsCreateFailOnFileOpen,
+#    PsCreateFailOnSectionCreate,
+#    PsCreateFailExeFormat,
+#    PsCreateFailMachineMismatch,
+#    PsCreateFailExeName, // Debugger specified
+#    PsCreateSuccess,
+#    PsCreateMaximumStates
+#} PS_CREATE_STATE;
+
+#typedef struct _PS_CREATE_INFO
+#{
+#    SIZE_T Size;
+#    PS_CREATE_STATE State;
+#    union
+#    {
+#        // PsCreateInitialState
+#        struct
+#        {
+#            union
+#            {
+#                ULONG InitFlags;
+#                struct
+#                {
+#                    UCHAR WriteOutputOnExit : 1;
+#                    UCHAR DetectManifest : 1;
+#                    UCHAR IFEOSkipDebugger : 1;
+#                    UCHAR IFEODoNotPropagateKeyState : 1;
+#                    UCHAR SpareBits1 : 4;
+#                    UCHAR SpareBits2 : 8;
+#                    USHORT ProhibitedImageCharacteristics : 16;
+#                };
+#            };
+#            ACCESS_MASK AdditionalFileAccess;
+#        } InitState;
+#
+#        // PsCreateFailOnSectionCreate
+#        struct
+#        {
+#            HANDLE FileHandle;
+#        } FailSection;
+#
+#        // PsCreateFailExeFormat
+#        struct
+#        {
+#            USHORT DllCharacteristics;
+#        } ExeFormat;
+#
+#        // PsCreateFailExeName
+#        struct
+#        {
+#            HANDLE IFEOKey;
+#        } ExeName;
+#
+#        // PsCreateSuccess
+#        struct
+#        {
+#            union
+#            {
+#                ULONG OutputFlags;
+#                struct
+#                {
+#                    UCHAR ProtectedProcess : 1;
+#                    UCHAR AddressSpaceOverride : 1;
+#                    UCHAR DevOverrideEnabled : 1; // from Image File Execution Options
+#                    UCHAR ManifestDetected : 1;
+#                    UCHAR ProtectedProcessLight : 1;
+#                    UCHAR SpareBits1 : 3;
+#                    UCHAR SpareBits2 : 8;
+#                    USHORT SpareBits3 : 16;
+#                };
+#            };
+#            HANDLE FileHandle;
+#            HANDLE SectionHandle;
+#            ULONGLONG UserProcessParametersNative;
+#            ULONG UserProcessParametersWow64;
+#            ULONG CurrentParameterFlags;
+#            ULONGLONG PebAddressNative;
+#            ULONG PebAddressWow64;
+#            ULONGLONG ManifestAddress;
+#            ULONG ManifestSize;
+#        } SuccessState;
+#    };
+#} PS_CREATE_INFO, *PPS_CREATE_INFO;
+PPS_CREATE_INFO,,4,u
+PS_CREATE_INFO,,4,u
+
+#typedef struct _SECURITY_DESCRIPTOR {
+#  BYTE                        Revision;
+#  BYTE                        Sbz1;
+#  WORD Control;
+#  PSID                        Owner;
+#  PSID                        Group;
+#  PACL                        Sacl;
+#  PACL                        Dacl;
+#} SECURITY_DESCRIPTOR, *PISECURITY_DESCRIPTOR;
+SECURITY_DESCRIPTOR,,4,u
+PSECURITY_DESCRIPTOR,,4,u
+
+#typedef struct _LUID {
+#  000 DWORD LowPart;
+#  004 LONG  HighPart;
+#  008
+#} LUID, *PLUID;
+LUID,struct,8,0,DWORD,LowPart,4,LONG,HighPart
+
+#typedef struct _FILETIME {
+#  DWORD dwLowDateTime;
+#  DWORD dwHighDateTime;
+#} FILETIME, *PFILETIME;
+FILETIME,struct,8,0,DWORD,dwLowDateTime,4,DWORD,dwHighDateTime
+
+#typedef struct _OVERLAPPED {
+#  000 ULONG_PTR Internal;
+#  004 ULONG_PTR InternalHigh;
+#  008 union {
+#    struct {
+#      DWORD Offset;
+#      DWORD OffsetHigh;
+#    } DUMMYSTRUCTNAME;
+#    PVOID Pointer;
+#  } DUMMYUNIONNAME;
+#  016 HANDLE    hEvent;
+#  020
+#} OVERLAPPED, *LPOVERLAPPED;
+OVERLAPPED,,4,u
+POVERLAPPED,,4,u
+
+#typedef struct _WSAOVERLAPPED {
+#  DWORD    Internal;
+#  DWORD    InternalHigh;
+#  DWORD    Offset;
+#  DWORD    OffsetHigh;
+#  WSAEVENT hEvent;
+#} WSAOVERLAPPED, *LPWSAOVERLAPPED;
+WSAOVERLAPPED,,4,u
+PWSAOVERLAPPED,,4,u
+LPWSAOVERLAPPED,,4,u
+
+#typedef struct WSAData {
+#  000 WORD           wVersion;
+#  002 WORD           wHighVersion;
+#  004 unsigned short iMaxSockets;
+#  006 unsigned short iMaxUdpDg;
+#  008 char           *lpVendorInfo;
+#  012 char           szDescription[WSADESCRIPTION_LEN=256 + 1];
+#  269 char           szSystemStatus[WSASYS_STATUS_LEN=128 + 1];
+#  396
+#} WSADATA;
+WSADATA,struct,396,0,WORD,wVersion,2,WORD,wHighVersion,4,USHORT,iMaxSockets,6,USHORT,iMaxUdpDg,8,STR*,lpVendorInfo,12,STR,szDescription,269,STR,szSystemStatus
+
+#typedef struct _PROCESS_INFORMATION {
+#  000 HANDLE hProcess;
+#  004 HANDLE hThread;
+#  008 DWORD  dwProcessId;
+#  012 DWORD  dwThreadId;
+#  016
+#} PROCESS_INFORMATION, *PPROCESS_INFORMATION, *LPPROCESS_INFORMATION;
+PROCESS_INFORMATION,struct,16,0,HANDLE,hProcess,4,HANDLE,hThread,8,DWORD,dwProcessId,12,DWORD,dwThreadId
+
+#typedef struct _STARTUPINFOA {
+#  000 DWORD  cb;
+#  004 LPSTR  lpReserved;
+#  008 LPSTR  lpDesktop;
+#  012 LPSTR  lpTitle;
+#  016 DWORD  dwX;
+#  020 DWORD  dwY;
+#  024 DWORD  dwXSize;
+#  028 DWORD  dwYSize;
+#  032 DWORD  dwXCountChars;
+#  036 DWORD  dwYCountChars;
+#  040 DWORD  dwFillAttribute;
+#  044 DWORD  dwFlags;
+#  048 WORD   wShowWindow;
+#  050 WORD   cbReserved2;
+#  052 LPBYTE lpReserved2;
+#  056 HANDLE hStdInput;
+#  060 HANDLE hStdOutput;
+#  064 HANDLE hStdError;
+#  068
+#} STARTUPINFOA, *LPSTARTUPINFOA;
+STARTUPINFOA,struct,68,0,DWORD,cb,4,STR*,lpReserved,8,STR*,lpDesktop,12,STR*,lpTitle,16,DWORD,dwX,20,DWORD,dwY,24,DWORD,dwXSize,28,DWORD,dwYSize,32,DWORD,dwXCountChars,36,DWORD,dwYCountChars,40,DWORD,dwFillAttribute,44,DWORD,dwFlags,48,WORD,wShowWindow,50,WORD,cbReserved2,52,BYTE*,lpReserved2,56,HANDLE,hStdInput,60,HANDLE,hStdOutput,64,HANDLE,hStdError
+
+#typedef struct _STARTUPINFOW {
+#  DWORD  cb;
+#  LPWSTR lpReserved;
+#  LPWSTR lpDesktop;
+#  LPWSTR lpTitle;
+#  DWORD  dwX;
+#  DWORD  dwY;
+#  DWORD  dwXSize;
+#  DWORD  dwYSize;
+#  DWORD  dwXCountChars;
+#  DWORD  dwYCountChars;
+#  DWORD  dwFillAttribute;
+#  DWORD  dwFlags;
+#  WORD   wShowWindow;
+#  WORD   cbReserved2;
+#  LPBYTE lpReserved2;
+#  HANDLE hStdInput;
+#  HANDLE hStdOutput;
+#  HANDLE hStdError;
+#} STARTUPINFOW, *LPSTARTUPINFOW;
+STARTUPINFOW,struct,68,0,DWORD,cb,4,WSTR*,lpReserved,8,WSTR*,lpDesktop,12,WSTR*,lpTitle,16,DWORD,dwX,20,DWORD,dwY,24,DWORD,dwXSize,28,DWORD,dwYSize,32,DWORD,dwXCountChars,36,DWORD,dwYCountChars,40,DWORD,dwFillAttribute,44,DWORD,dwFlags,48,WORD,wShowWindow,50,WORD,cbReserved2,52,BYTE*,lpReserved2,56,HANDLE,hStdInput,60,HANDLE,hStdOutput,64,HANDLE,hStdError
+
+
+#typedef struct _WSAPROTOCOLCHAIN {
+#  000 int   ChainLen;
+#  004 DWORD ChainEntries[MAX_PROTOCOL_CHAIN=7];
+#  032
+#} WSAPROTOCOLCHAIN, *LPWSAPROTOCOLCHAIN;
+WSAPROTOCOLCHAIN,struct,32,0,int,ChainLen,4,DWORD,ChainEntries0,8,DWORD,ChainEntries1,12,DWORD,ChainEntries2,16,DWORD,ChainEntries3,20,DWORD,ChainEntries4,24,DWORD,ChainEntries5,28,DWORD,ChainEntries6
+
+#typedef struct _GUID {
+#  000 DWORD Data1;
+#  004 WORD  Data2;
+#  006 WORD  Data3;
+#  008 BYTE  Data4[8];
+#  016
+#} GUID;
+GUID,struct,16,0,DWORD,Data1,4,WORD,Data2,6,WORD,Data3,8,uint64_t,Data4
+
+#typedef struct _WSAPROTOCOL_INFOA {
+#  000 DWORD            dwServiceFlags1;
+#  004 DWORD            dwServiceFlags2;
+#  008 DWORD            dwServiceFlags3;
+#  012 DWORD            dwServiceFlags4;
+#  016 DWORD            dwProviderFlags;
+#  020 GUID             ProviderId;
+#  036 DWORD            dwCatalogEntryId;
+#  040 WSAPROTOCOLCHAIN ProtocolChain;
+#  072 int              iVersion;
+#  076 int              iAddressFamily;
+#  080 int              iMaxSockAddr;
+#  084 int              iMinSockAddr;
+#  088 int              iSocketType;
+#  092 int              iProtocol;
+#  096 int              iProtocolMaxOffset;
+#  100 int              iNetworkByteOrder;
+#  104 int              iSecurityScheme;
+#  108 DWORD            dwMessageSize;
+#  112 DWORD            dwProviderReserved;
+#  116 CHAR             szProtocol[WSAPROTOCOL_LEN=255 + 1];
+#  372
+#} WSAPROTOCOL_INFOA, *LPWSAPROTOCOL_INFOA;
+WSAPROTOCOL_INFOA,struct,372,116,STR,szProtocol
+
+#typedef struct _WSAPROTOCOL_INFOW {
+#  000 DWORD            dwServiceFlags1;
+#  004 DWORD            dwServiceFlags2;
+#  008 DWORD            dwServiceFlags3;
+#  012 DWORD            dwServiceFlags4;
+#  016 DWORD            dwProviderFlags;
+#  020 GUID             ProviderId;
+#  036 DWORD            dwCatalogEntryId;
+#  040 WSAPROTOCOLCHAIN ProtocolChain;
+#  072 int              iVersion;
+#  076 int              iAddressFamily;
+#  080 int              iMaxSockAddr;
+#  084 int              iMinSockAddr;
+#  088 int              iSocketType;
+#  092 int              iProtocol;
+#  096 int              iProtocolMaxOffset;
+#  100 int              iNetworkByteOrder;
+#  104 int              iSecurityScheme;
+#  108 DWORD            dwMessageSize;
+#  112 DWORD            dwProviderReserved;
+#  116 WCHAR            szProtocol[WSAPROTOCOL_LEN=255 + 1];
+#  628
+#} WSAPROTOCOL_INFOW, *LPWSAPROTOCOL_INFOW;
+WSAPROTOCOL_INFOW,struct,628,116,WSTR,szProtocol
+
+#typedef struct _SECURITY_ATTRIBUTES {
+#  000 DWORD  nLength;
+#  004 LPVOID lpSecurityDescriptor;
+#  008 BOOL   bInheritHandle;
+#  012
+#} SECURITY_ATTRIBUTES, *PSECURITY_ATTRIBUTES, *LPSECURITY_ATTRIBUTES;
+SECURITY_ATTRIBUTES,struct,12,0,DWORD,nLength,4,PVOID,lpSecurityDescriptor,8,BOOL,bInheritHandle
+
+#typedef struct _KEY_VALUE_ENTRY {
+#  000 PUNICODE_STRING ValueName;
+#  004 ULONG           DataLength;
+#  008 ULONG           DataOffset;
+#  012 ULONG           Type;
+#  016
+#} KEY_VALUE_ENTRY, *PKEY_VALUE_ENTRY;
+KEY_VALUE_ENTRY,struct,16,0,UNICODE_STRING*,ValueName,4,ULONG,DataLength,8,ULONG,DataOffset,12,ULONG,Type
+
+#typedef struct _DnsRecordA {
+#  struct _DnsRecordA *pNext;
+#  PSTR               pName;
+#  WORD               wType;
+#  WORD               wDataLength;
+#  union {
+#    DWORD            DW;
+#    DNS_RECORD_FLAGS S;
+#  } Flags;
+#  DWORD              dwTtl;
+#  DWORD              dwReserved;
+#  union {
+#    DNS_A_DATA          A;
+#    DNS_SOA_DATAA       SOA;
+#    DNS_SOA_DATAA       Soa;
+#    DNS_PTR_DATAA       PTR;
+#    DNS_PTR_DATAA       Ptr;
+#    DNS_PTR_DATAA       NS;
+#    DNS_PTR_DATAA       Ns;
+#    DNS_PTR_DATAA       CNAME;
+#    DNS_PTR_DATAA       Cname;
+#    DNS_PTR_DATAA       DNAME;
+#    DNS_PTR_DATAA       Dname;
+#    DNS_PTR_DATAA       MB;
+#    DNS_PTR_DATAA       Mb;
+#    DNS_PTR_DATAA       MD;
+#    DNS_PTR_DATAA       Md;
+#    DNS_PTR_DATAA       MF;
+#    DNS_PTR_DATAA       Mf;
+#    DNS_PTR_DATAA       MG;
+#    DNS_PTR_DATAA       Mg;
+#    DNS_PTR_DATAA       MR;
+#    DNS_PTR_DATAA       Mr;
+#    DNS_MINFO_DATAA     MINFO;
+#    DNS_MINFO_DATAA     Minfo;
+#    DNS_MINFO_DATAA     RP;
+#    DNS_MINFO_DATAA     Rp;
+#    DNS_MX_DATAA        MX;
+#    DNS_MX_DATAA        Mx;
+#    DNS_MX_DATAA        AFSDB;
+#    DNS_MX_DATAA        Afsdb;
+#    DNS_MX_DATAA        RT;
+#    DNS_MX_DATAA        Rt;
+#    DNS_TXT_DATAA       HINFO;
+#    DNS_TXT_DATAA       Hinfo;
+#    DNS_TXT_DATAA       ISDN;
+#    DNS_TXT_DATAA       Isdn;
+#    DNS_TXT_DATAA       TXT;
+#    DNS_TXT_DATAA       Txt;
+#    DNS_TXT_DATAA       X25;
+#    DNS_NULL_DATA       Null;
+#    DNS_WKS_DATA        WKS;
+#    DNS_WKS_DATA        Wks;
+#    DNS_AAAA_DATA       AAAA;
+#    DNS_KEY_DATA        KEY;
+#    DNS_KEY_DATA        Key;
+#    DNS_SIG_DATAA       SIG;
+#    DNS_SIG_DATAA       Sig;
+#    DNS_ATMA_DATA       ATMA;
+#    DNS_ATMA_DATA       Atma;
+#    DNS_NXT_DATAA       NXT;
+#    DNS_NXT_DATAA       Nxt;
+#    DNS_SRV_DATAA       SRV;
+#    DNS_SRV_DATAA       Srv;
+#    DNS_NAPTR_DATAA     NAPTR;
+#    DNS_NAPTR_DATAA     Naptr;
+#    DNS_OPT_DATA        OPT;
+#    DNS_OPT_DATA        Opt;
+#    DNS_DS_DATA         DS;
+#    DNS_DS_DATA         Ds;
+#    DNS_RRSIG_DATAA     RRSIG;
+#    DNS_RRSIG_DATAA     Rrsig;
+#    DNS_NSEC_DATAA      NSEC;
+#    DNS_NSEC_DATAA      Nsec;
+#    DNS_DNSKEY_DATA     DNSKEY;
+#    DNS_DNSKEY_DATA     Dnskey;
+#    DNS_TKEY_DATAA      TKEY;
+#    DNS_TKEY_DATAA      Tkey;
+#    DNS_TSIG_DATAA      TSIG;
+#    DNS_TSIG_DATAA      Tsig;
+#    DNS_WINS_DATA       WINS;
+#    DNS_WINS_DATA       Wins;
+#    DNS_WINSR_DATAA     WINSR;
+#    DNS_WINSR_DATAA     WinsR;
+#    DNS_WINSR_DATAA     NBSTAT;
+#    DNS_WINSR_DATAA     Nbstat;
+#    DNS_DHCID_DATA      DHCID;
+#    DNS_NSEC3_DATA      NSEC3;
+#    DNS_NSEC3_DATA      Nsec3;
+#    DNS_NSEC3PARAM_DATA NSEC3PARAM;
+#    DNS_NSEC3PARAM_DATA Nsec3Param;
+#    DNS_TLSA_DATA       TLSA;
+#    DNS_TLSA_DATA       Tlsa;
+#    DNS_UNKNOWN_DATA    UNKNOWN;
+#    DNS_UNKNOWN_DATA    Unknown;
+#    PBYTE               pDataPtr;
+#  } Data;
+#} DNS_RECORDA, *PDNS_RECORDA;
+DNS_RECORDA,,4,u
+PDNS_RECORDA,,4,u
+
+#typedef struct _DnsRecordW {
+#  struct _DnsRecordW *pNext;
+#  PWSTR              pName;
+#  WORD               wType;
+#  WORD               wDataLength;
+#  union {
+#    DWORD            DW;
+#    DNS_RECORD_FLAGS S;
+#  } Flags;
+#  DWORD              dwTtl;
+#  DWORD              dwReserved;
+#  union {
+#    DNS_A_DATA          A;
+#    DNS_SOA_DATAW       SOA;
+#    DNS_SOA_DATAW       Soa;
+#    DNS_PTR_DATAW       PTR;
+#    DNS_PTR_DATAW       Ptr;
+#    DNS_PTR_DATAW       NS;
+#    DNS_PTR_DATAW       Ns;
+#    DNS_PTR_DATAW       CNAME;
+#    DNS_PTR_DATAW       Cname;
+#    DNS_PTR_DATAW       DNAME;
+#    DNS_PTR_DATAW       Dname;
+#    DNS_PTR_DATAW       MB;
+#    DNS_PTR_DATAW       Mb;
+#    DNS_PTR_DATAW       MD;
+#    DNS_PTR_DATAW       Md;
+#    DNS_PTR_DATAW       MF;
+#    DNS_PTR_DATAW       Mf;
+#    DNS_PTR_DATAW       MG;
+#    DNS_PTR_DATAW       Mg;
+#    DNS_PTR_DATAW       MR;
+#    DNS_PTR_DATAW       Mr;
+#    DNS_MINFO_DATAW     MINFO;
+#    DNS_MINFO_DATAW     Minfo;
+#    DNS_MINFO_DATAW     RP;
+#    DNS_MINFO_DATAW     Rp;
+#    DNS_MX_DATAW        MX;
+#    DNS_MX_DATAW        Mx;
+#    DNS_MX_DATAW        AFSDB;
+#    DNS_MX_DATAW        Afsdb;
+#    DNS_MX_DATAW        RT;
+#    DNS_MX_DATAW        Rt;
+#    DNS_TXT_DATAW       HINFO;
+#    DNS_TXT_DATAW       Hinfo;
+#    DNS_TXT_DATAW       ISDN;
+#    DNS_TXT_DATAW       Isdn;
+#    DNS_TXT_DATAW       TXT;
+#    DNS_TXT_DATAW       Txt;
+#    DNS_TXT_DATAW       X25;
+#    DNS_NULL_DATA       Null;
+#    DNS_WKS_DATA        WKS;
+#    DNS_WKS_DATA        Wks;
+#    DNS_AAAA_DATA       AAAA;
+#    DNS_KEY_DATA        KEY;
+#    DNS_KEY_DATA        Key;
+#    DNS_SIG_DATAW       SIG;
+#    DNS_SIG_DATAW       Sig;
+#    DNS_ATMA_DATA       ATMA;
+#    DNS_ATMA_DATA       Atma;
+#    DNS_NXT_DATAW       NXT;
+#    DNS_NXT_DATAW       Nxt;
+#    DNS_SRV_DATAW       SRV;
+#    DNS_SRV_DATAW       Srv;
+#    DNS_NAPTR_DATAW     NAPTR;
+#    DNS_NAPTR_DATAW     Naptr;
+#    DNS_OPT_DATA        OPT;
+#    DNS_OPT_DATA        Opt;
+#    DNS_DS_DATA         DS;
+#    DNS_DS_DATA         Ds;
+#    DNS_RRSIG_DATAW     RRSIG;
+#    DNS_RRSIG_DATAW     Rrsig;
+#    DNS_NSEC_DATAW      NSEC;
+#    DNS_NSEC_DATAW      Nsec;
+#    DNS_DNSKEY_DATA     DNSKEY;
+#    DNS_DNSKEY_DATA     Dnskey;
+#    DNS_TKEY_DATAW      TKEY;
+#    DNS_TKEY_DATAW      Tkey;
+#    DNS_TSIG_DATAW      TSIG;
+#    DNS_TSIG_DATAW      Tsig;
+#    DNS_WINS_DATA       WINS;
+#    DNS_WINS_DATA       Wins;
+#    DNS_WINSR_DATAW     WINSR;
+#    DNS_WINSR_DATAW     WinsR;
+#    DNS_WINSR_DATAW     NBSTAT;
+#    DNS_WINSR_DATAW     Nbstat;
+#    DNS_DHCID_DATA      DHCID;
+#    DNS_NSEC3_DATA      NSEC3;
+#    DNS_NSEC3_DATA      Nsec3;
+#    DNS_NSEC3PARAM_DATA NSEC3PARAM;
+#    DNS_NSEC3PARAM_DATA Nsec3Param;
+#    DNS_TLSA_DATA       TLSA;
+#    DNS_TLSA_DATA       Tlsa;
+#    DNS_UNKNOWN_DATA    UNKNOWN;
+#    DNS_UNKNOWN_DATA    Unknown;
+#    PBYTE               pDataPtr;
+#  } Data;
+#} DNS_RECORDW, *PDNS_RECORDW;
+DNS_RECORDW,,4,u
+PDNS_RECORDW,,4,u

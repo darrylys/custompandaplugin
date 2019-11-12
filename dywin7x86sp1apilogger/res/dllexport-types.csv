@@ -1,0 +1,25 @@
+
+uint32_t,,4,u
+int32_t,,4,s
+uint8_t,,1,u
+int8_t,,1,s
+uint16_t,,2,u
+int16_t,,2,s
+uint64_t,,8,u
+int64_t,,8,s
+*,,4,u
+
+CHAR,string,1,z
+STR,string,1,z
+WSTR,string,2,z
+BSTR,string,1,b,1
+BWSTR,string,2,b,1
+
+#typedef struct _COMPLEX {
+#    /*0000*/int32_t a;
+#    /*0004*/int8_t b;
+#    /*0006*/int16_t c;
+#    /*0008*/int64_t d;
+#    /*0010*/char str[32];
+#} COMPLEX, *PCOMPLEX;
+COMPLEX,struct,48,0,int32_t,a,4,int8_t,b,6,int16_t,c,8,int64_t,d,16,STR,str

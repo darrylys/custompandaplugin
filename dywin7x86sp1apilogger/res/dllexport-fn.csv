@@ -1,0 +1,96 @@
+
+
+#12e0 _stdcallReturnDbl@16 13
+#1380 _stdcallReturnDblParamDblFlo@12 14
+#1330 _stdcallReturnFlo@8 15
+
+#14e0 _stdcallLLFirst@20 3
+#extern HOOKDEF(uint32_t, STDCALL, _stdcallLLFirst@20,
+#    uint64_t ll,
+#    uint32_t i,
+#    uint8_t b,
+#    uint16_t s
+#);
+DllExports.dll,0x14e0,3,uint32_t,STDCALL,_stdcallLLFirst@20,in,uint64_t,ll,in,uint32_t,i,in,uint8_t,b,in,uint16_t,s
+
+#1430 _stdcallPassDblPtr@4 8
+#extern HOOKDEF(uint32_t,STDCALL, _stdcallPassDblPtr@4,
+#    PCHAR *ppStr
+#);
+DllExports.dll,0x1430,8,uint32_t,STDCALL,_stdcallPassDblPtr@4,in,STR**,ppStr
+
+#1460 _stdcallPassTriplePtr@4 10
+#extern HOOKDEF(uint32_t, STDCALL, _stdcallPassTriplePtr@4,#
+#    PCHAR **pppStr
+#);
+DllExports.dll,0x1460,10,uint32_t,STDCALL,_stdcallPassTriplePtr@4,in,STR***,pppStr
+
+#14a0 _stdcallPassQuadPtr@4 9
+#extern HOOKDEF(uint32_t, STDCALL, _stdcallPassQuadPtr@4,
+#    PCHAR ***ppppStr
+#);
+DllExports.dll,0x14a0,9,uint32_t,STDCALL,_stdcallPassQuadPtr@4,in,STR****,ppppStr
+
+#1000 _stdcallParamULLReturnVoid@8 5
+#extern HOOKDEF(void, STDCALL, _stdcallParamULLReturnVoid@8,
+#    uint64_t param
+#);
+DllExports.dll,0x1000,5,void,STDCALL,_stdcallParamULLReturnVoid@8,in,uint64_t,param
+
+#1060 _stdcallParamVoidReturnULL@0 6
+#extern HOOKDEF(uint64_t, STDCALL, _stdcallParamVoidReturnULL@0,
+#    void
+#);
+DllExports.dll,0x1060,6,uint64_t,STDCALL,_stdcallParamVoidReturnULL@0
+
+#1090 _stdcallManyParams@20 4
+#extern HOOKDEF(void, STDCALL, _stdcallManyParams@20,
+#    uint32_t i,
+#    uint8_t b,
+#    uint16_t s,
+#    uint64_t ll
+#);
+DllExports.dll,0x1090,4,void,STDCALL,_stdcallManyParams@20,in,uint32_t,i,in,uint8_t,b,in,uint16_t,s,in,uint64_t,ll
+
+#1130 _stdcallStructParam@48 16
+#extern HOOKDEF(void, STDCALL, _stdcallStructParam@48,
+#    COMPLEX obj
+#);
+DllExports.dll,0x1130,16,void,STDCALL,_stdcallStructParam@48,in,COMPLEX,obj
+
+#11c0 _stdcallPassByRef@4 7
+#extern HOOKDEF(void, STDCALL, _stdcallPassByRef@4,
+#    COMPLEX &obj
+#);
+DllExports.dll,0x11c0,7,void,STDCALL,_stdcallPassByRef@4,in,COMPLEX*,obj
+
+#1230 _stdcallRetStruct@12 12
+#extern HOOKDEF(COMPLEX, STDCALL, _stdcallRetStruct@12,
+#    int32_t a,
+#    int32_t b,
+#    int32_t c
+#);
+DllExports.dll,0x1230,12,COMPLEX,STDCALL,_stdcallRetStruct@12,in,int32_t,a,in,int32_t,b,in,int32_t,c
+
+#10f0 cdeclReturnUint 2
+#extern HOOKDEF(int32_t, CDECL, cdeclReturnUint,
+#    int32_t a,
+#    uint32_t b,
+#    int8_t c,
+#    int16_t d,
+#    int64_t e
+#);
+DllExports.dll,0x10f0,2,int32_t,CDECL,cdeclReturnUint,in,int32_t,a,in,uint32_t,b,in,int8_t,c,in,int16_t,d,in,int64_t,e
+
+#13d0 cdeclRecursive 1
+#extern HOOKDEF(int32_t, CDECL, cdeclRecursive,
+#    uint32_t a
+#);
+DllExports.dll,0x13d0,1,int32_t,CDECL,cdeclRecursive,in,uint32_t,a
+
+#1400 _stdcallRecursive@4 11
+#extern HOOKDEF(int32_t, STDCALL, _stdcallRecursive@4,
+#    uint32_t a
+#);
+DllExports.dll,0x1400,11,int32_t,STDCALL,_stdcallRecursive@4,in,uint32_t,a
+
