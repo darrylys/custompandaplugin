@@ -28,3 +28,7 @@ Example:
 
 `i386-softmmu/qemu-system-i386 -m 2G -monitor stdio -replay manynops -panda 'dyevdtnopseq:asid=7ec5000' -os 'windows-32-7'`
 
+Limitations:
+-----------
+
+Only available for Windows 7 x86 for now.
