@@ -1,5 +1,6 @@
 Custom panda plugins  
 These are not always up-to-date with latest PANDA  
+Only tested on Windows 7 x86  
   
 Evasion detection:  
 dyevdtsizeofimg: checking whether application writes to Size Of Image  

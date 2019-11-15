@@ -1,0 +1,11 @@
+# Don't forget to add your plugin to config.panda!
+
+# If you need custom CFLAGS or LIBS, set them up here
+#CFLAGS+=-I/usr/include/llvm-3.3 -L/usr/lib/llvm-3.3/lib
+#LIBS+=-lcapstone -lllvm -lLLVMAArch64AsmParser -lLLVMAArch64AsmPrinter -lLLVMAArch64CodeGen -lLLVMAArch64Desc -lLLVMAArch64Disassembler -lLLVMAArch64Info -lLLVMAArch64Utils -lllvm_analysis -lLLVMAnalysis -lLLVMArchive -lLLVMARMAsmParser -lLLVMARMAsmPrinter -lLLVMARMCodeGen -lLLVMARMDesc -lLLVMARMDisassembler -lLLVMARMInfo -lLLVMAsmParser -lLLVMAsmPrinter -lllvm_bitreader -lLLVMBitReader -lllvm_bitwriter -lLLVMBitWriter -lLLVMCodeGen -lLLVMCore -lLLVMCppBackendCodeGen -lLLVMCppBackendInfo -lLLVMDebugInfo -lllvm_executionengine -lLLVMExecutionEngine -lLLVMHexagonAsmPrinter -lLLVMHexagonCodeGen -lLLVMHexagonDesc -lLLVMHexagonInfo -lLLVMInstCombine -lLLVMInstrumentation -lLLVMInterpreter -lLLVMipa -lllvm_ipo -lLLVMipo -lLLVMIRReader -lLLVMJIT -lLLVMLinker -lLLVMMBlazeAsmParser -lLLVMMBlazeAsmPrinter -lLLVMMBlazeCodeGen -lLLVMMBlazeDesc -lLLVMMBlazeDisassembler -lLLVMMBlazeInfo -lLLVMMC -lLLVMMCDisassembler -lLLVMMCJIT -lLLVMMCParser -lLLVMMipsAsmParser -lLLVMMipsAsmPrinter -lLLVMMipsCodeGen -lLLVMMipsDesc -lLLVMMipsDisassembler -lLLVMMipsInfo -lLLVMMSP430AsmPrinter -lLLVMMSP430CodeGen -lLLVMMSP430Desc -lLLVMMSP430Info -lLLVMNVPTXAsmPrinter -lLLVMNVPTXCodeGen -lLLVMNVPTXDesc -lLLVMNVPTXInfo -lLLVMObjCARCOpts -lLLVMObject -lLLVMOption -lLLVMPowerPCAsmParser -lLLVMPowerPCAsmPrinter -lLLVMPowerPCCodeGen -lLLVMPowerPCDesc -lLLVMPowerPCInfo -lLLVMR600AsmPrinter -lLLVMR600CodeGen -lLLVMR600Desc -lLLVMR600Info -lLLVMRuntimeDyld -lllvm_scalar_opts -lLLVMScalarOpts -lLLVMSelectionDAG -lLLVMSparcCodeGen -lLLVMSparcDesc -lLLVMSparcInfo -lLLVMSupport -lLLVMSystemZAsmParser -lLLVMSystemZAsmPrinter -lLLVMSystemZCodeGen -lLLVMSystemZDesc -lLLVMSystemZInfo -lLLVMTableGen -lllvm_target -lLLVMTarget -lLLVMTransformUtils -lLLVMVectorize -lLLVMX86AsmParser -lLLVMX86AsmPrinter -lLLVMX86CodeGen -lLLVMX86Desc -lLLVMX86Disassembler -lLLVMX86Info -lLLVMX86Utils -lLLVMXCoreAsmPrinter -lLLVMXCoreCodeGen -lLLVMXCoreDesc -lLLVMXCoreDisassembler -lLLVMXCoreInfo 
+
+# The main rule for your plugin. List all object-file dependencies.
+$(PLUGIN_TARGET_DIR)/panda_$(PLUGIN_NAME).so: \
+	$(PLUGIN_OBJ_DIR)/$(PLUGIN_NAME).o \
+	$(PLUGIN_OBJ_DIR)/utilhelper.o \
+	$(PLUGIN_OBJ_DIR)/winstruct.o
