@@ -4,4 +4,6 @@ outfile.sh
 *.workspace
 .codelite
 .codelite/
+*.o
+*.log
 
