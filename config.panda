@@ -21,3 +21,7 @@ exectrace
 dyevdtnopseq
 dyevdtsizeofimg
 dyevdtntglobalflag
+memstrings
+memstats
+memdump
+memsnap

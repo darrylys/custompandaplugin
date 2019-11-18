@@ -1,0 +1,126 @@
+darryl@darryl-VirtualBox:~/panda/panda/build$ i386-softmmu/qemu-system-i386 -m 2G -replay wgettest1 -monitor stdio -panda memstats
+Initializing plugin memstats
+Initializing plugin memstats
+QEMU 2.8.50 monitor - type 'help' for more information
+(qemu) loading snapshot
+... done.
+opening nondet log for read :	./wgettest1-rr-nondet.log
+./wgettest1-rr-nondet.log:   588734074 instrs total.
+wgettest1:     5887348 (  1.00%) instrs.    1.22 sec.  0.91 GB ram.
+wgettest1:    11774682 (  2.00%) instrs.    1.78 sec.  0.93 GB ram.
+wgettest1:    17662026 (  3.00%) instrs.    2.17 sec.  0.93 GB ram.
+wgettest1:    23549389 (  4.00%) instrs.    2.73 sec.  0.94 GB ram.
+wgettest1:    29436704 (  5.00%) instrs.    2.84 sec.  0.94 GB ram.
+wgettest1:    35324046 (  6.00%) instrs.    3.08 sec.  0.94 GB ram.
+wgettest1:    41211386 (  7.00%) instrs.    3.70 sec.  0.96 GB ram.
+wgettest1:    47098733 (  8.00%) instrs.    4.12 sec.  0.96 GB ram.
+wgettest1:    52986076 (  9.00%) instrs.    4.37 sec.  0.96 GB ram.
+wgettest1:    58873408 ( 10.00%) instrs.    4.77 sec.  0.96 GB ram.
+wgettest1:    64760755 ( 11.00%) instrs.    5.10 sec.  0.97 GB ram.
+wgettest1:    70648095 ( 12.00%) instrs.    5.63 sec.  0.97 GB ram.
+wgettest1:    76535446 ( 13.00%) instrs.    5.92 sec.  0.97 GB ram.
+wgettest1:    82422774 ( 14.00%) instrs.    6.24 sec.  0.97 GB ram.
+wgettest1:    88310114 ( 15.00%) instrs.    6.51 sec.  0.97 GB ram.
+wgettest1:    94197453 ( 16.00%) instrs.    6.80 sec.  0.97 GB ram.
+wgettest1:   100084797 ( 17.00%) instrs.    7.05 sec.  0.97 GB ram.
+wgettest1:   105972138 ( 18.00%) instrs.    7.59 sec.  0.98 GB ram.
+wgettest1:   111859477 ( 19.00%) instrs.    8.05 sec.  0.98 GB ram.
+wgettest1:   117746824 ( 20.00%) instrs.    8.47 sec.  0.98 GB ram.
+wgettest1:   123634159 ( 21.00%) instrs.    8.95 sec.  0.98 GB ram.
+wgettest1:   129521503 ( 22.00%) instrs.    9.35 sec.  0.98 GB ram.
+wgettest1:   135408839 ( 23.00%) instrs.    9.74 sec.  0.98 GB ram.
+wgettest1:   141296178 ( 24.00%) instrs.   10.55 sec.  1.00 GB ram.
+wgettest1:   147183520 ( 25.00%) instrs.   11.09 sec.  1.01 GB ram.
+wgettest1:   153070864 ( 26.00%) instrs.   11.55 sec.  1.01 GB ram.
+wgettest1:   158958201 ( 27.00%) instrs.   12.04 sec.  1.01 GB ram.
+wgettest1:   164845541 ( 28.00%) instrs.   12.56 sec.  1.01 GB ram.
+wgettest1:   170732882 ( 29.00%) instrs.   12.98 sec.  1.01 GB ram.
+wgettest1:   176620245 ( 30.00%) instrs.   13.54 sec.  1.01 GB ram.
+wgettest1:   182507565 ( 31.00%) instrs.   14.03 sec.  1.01 GB ram.
+wgettest1:   188394905 ( 32.00%) instrs.   14.38 sec.  1.01 GB ram.
+wgettest1:   194282255 ( 33.00%) instrs.   14.77 sec.  1.01 GB ram.
+wgettest1:   200169587 ( 34.00%) instrs.   15.39 sec.  1.01 GB ram.
+wgettest1:   206056926 ( 35.00%) instrs.   15.84 sec.  1.02 GB ram.
+wgettest1:   211944269 ( 36.00%) instrs.   16.27 sec.  1.02 GB ram.
+wgettest1:   217831608 ( 37.00%) instrs.   16.70 sec.  1.02 GB ram.
+wgettest1:   223718949 ( 38.00%) instrs.   17.11 sec.  1.02 GB ram.
+wgettest1:   229606292 ( 39.00%) instrs.   17.57 sec.  1.02 GB ram.
+wgettest1:   235493634 ( 40.00%) instrs.   18.01 sec.  1.02 GB ram.
+wgettest1:   241380973 ( 41.00%) instrs.   18.49 sec.  1.02 GB ram.
+wgettest1:   247268327 ( 42.00%) instrs.   18.86 sec.  1.03 GB ram.
+wgettest1:   253155654 ( 43.00%) instrs.   19.31 sec.  1.03 GB ram.
+wgettest1:   259043002 ( 44.00%) instrs.   19.67 sec.  1.03 GB ram.
+wgettest1:   264930336 ( 45.00%) instrs.   20.04 sec.  1.03 GB ram.
+wgettest1:   270817693 ( 46.00%) instrs.   20.37 sec.  1.03 GB ram.
+wgettest1:   276705015 ( 47.00%) instrs.   20.73 sec.  1.03 GB ram.
+wgettest1:   282592361 ( 48.00%) instrs.   21.23 sec.  1.04 GB ram.
+wgettest1:   288479702 ( 49.00%) instrs.   21.41 sec.  1.04 GB ram.
+wgettest1:   294367049 ( 50.00%) instrs.   21.53 sec.  1.04 GB ram.
+wgettest1:   300254379 ( 51.00%) instrs.   21.93 sec.  1.04 GB ram.
+wgettest1:   306141719 ( 52.00%) instrs.   22.46 sec.  1.04 GB ram.
+wgettest1:   312029061 ( 53.00%) instrs.   23.09 sec.  1.05 GB ram.
+wgettest1:   317916401 ( 54.00%) instrs.   23.71 sec.  1.05 GB ram.
+wgettest1:   323803750 ( 55.00%) instrs.   24.30 sec.  1.05 GB ram.
+wgettest1:   329691082 ( 56.00%) instrs.   24.74 sec.  1.05 GB ram.
+wgettest1:   335578425 ( 57.00%) instrs.   25.20 sec.  1.05 GB ram.
+wgettest1:   341465763 ( 58.00%) instrs.   25.62 sec.  1.05 GB ram.
+wgettest1:   347353107 ( 59.00%) instrs.   25.99 sec.  1.06 GB ram.
+wgettest1:   353240446 ( 60.00%) instrs.   26.42 sec.  1.06 GB ram.
+wgettest1:   359127792 ( 61.00%) instrs.   26.82 sec.  1.06 GB ram.
+wgettest1:   365015128 ( 62.00%) instrs.   27.28 sec.  1.06 GB ram.
+wgettest1:   370902467 ( 63.00%) instrs.   27.71 sec.  1.06 GB ram.
+wgettest1:   376789808 ( 64.00%) instrs.   28.12 sec.  1.06 GB ram.
+wgettest1:   382677151 ( 65.00%) instrs.   28.56 sec.  1.06 GB ram.
+wgettest1:   388564489 ( 66.00%) instrs.   29.01 sec.  1.06 GB ram.
+wgettest1:   394451851 ( 67.00%) instrs.   29.43 sec.  1.06 GB ram.
+wgettest1:   400339174 ( 68.00%) instrs.   29.86 sec.  1.06 GB ram.
+wgettest1:   406226513 ( 69.00%) instrs.   30.31 sec.  1.06 GB ram.
+wgettest1:   412113857 ( 70.00%) instrs.   30.71 sec.  1.06 GB ram.
+wgettest1:   418001198 ( 71.00%) instrs.   31.13 sec.  1.06 GB ram.
+wgettest1:   423888538 ( 72.00%) instrs.   31.55 sec.  1.06 GB ram.
+wgettest1:   429775876 ( 73.00%) instrs.   32.01 sec.  1.06 GB ram.
+wgettest1:   435663218 ( 74.00%) instrs.   32.55 sec.  1.06 GB ram.
+wgettest1:   441550557 ( 75.00%) instrs.   33.01 sec.  1.06 GB ram.
+wgettest1:   447437907 ( 76.00%) instrs.   33.53 sec.  1.06 GB ram.
+wgettest1:   453325239 ( 77.00%) instrs.   34.12 sec.  1.07 GB ram.
+wgettest1:   459212581 ( 78.00%) instrs.   34.73 sec.  1.07 GB ram.
+wgettest1:   465099920 ( 79.00%) instrs.   35.33 sec.  1.07 GB ram.
+wgettest1:   470987265 ( 80.00%) instrs.   35.59 sec.  1.07 GB ram.
+wgettest1:   476874615 ( 81.00%) instrs.   35.74 sec.  1.07 GB ram.
+wgettest1:   482761942 ( 82.00%) instrs.   36.00 sec.  1.07 GB ram.
+wgettest1:   488649303 ( 83.00%) instrs.   36.20 sec.  1.07 GB ram.
+wgettest1:   494536626 ( 84.00%) instrs.   36.45 sec.  1.07 GB ram.
+wgettest1:   500423971 ( 85.00%) instrs.   36.80 sec.  1.08 GB ram.
+wgettest1:   506311312 ( 86.00%) instrs.   36.94 sec.  1.08 GB ram.
+wgettest1:   512198661 ( 87.00%) instrs.   37.07 sec.  1.08 GB ram.
+wgettest1:   518085993 ( 88.00%) instrs.   37.31 sec.  1.08 GB ram.
+wgettest1:   523973326 ( 89.00%) instrs.   37.55 sec.  1.08 GB ram.
+wgettest1:   529860670 ( 90.00%) instrs.   38.18 sec.  1.09 GB ram.
+wgettest1:   535748013 ( 91.00%) instrs.   38.66 sec.  1.10 GB ram.
+wgettest1:   541635349 ( 92.00%) instrs.   39.16 sec.  1.11 GB ram.
+wgettest1:   547522697 ( 93.00%) instrs.   39.56 sec.  1.11 GB ram.
+wgettest1:   553410033 ( 94.00%) instrs.   39.93 sec.  1.11 GB ram.
+wgettest1:   559297371 ( 95.00%) instrs.   40.35 sec.  1.11 GB ram.
+wgettest1:   565184713 ( 96.00%) instrs.   40.82 sec.  1.13 GB ram.
+wgettest1:   571072052 ( 97.00%) instrs.   41.28 sec.  1.13 GB ram.
+wgettest1:   576959405 ( 98.00%) instrs.   41.62 sec.  1.13 GB ram.
+wgettest1:   582846740 ( 99.00%) instrs.   42.04 sec.  1.13 GB ram.
+./wgettest1-rr-nondet.log:  log is empty.
+./wgettest1-rr-nondet.log:  log is empty.
+Replay completed successfully. 1
+Time taken was: 43 seconds.
+Stats:
+RR_INPUT_1 number = 0, size = 0 bytes
+RR_INPUT_2 number = 0, size = 0 bytes
+RR_INPUT_4 number = 5054, size = 70756 bytes
+RR_INPUT_8 number = 37279, size = 671022 bytes
+RR_INTERRUPT_REQUEST number = 4813, size = 67382 bytes
+RR_EXIT_REQUEST number = 0, size = 0 bytes
+RR_SKIPPED_CALL number = 1072, size = 4030724 bytes
+RR_END_OF_LOG number = 1, size = 10 bytes
+RR_PENDING_INTERRUPTS number = 0, size = 0 bytes
+RR_EXCEPTION number = 0, size = 0 bytes
+max_queue_len = 285
+Checksum of guest memory: 0x39a027d5
+Replay completed successfully 2.
+Memory statistics: 208445447 loads, 147039193 stores, 757728730 bytes read, 562574804 bytes written.
