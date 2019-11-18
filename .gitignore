@@ -7,3 +7,5 @@ outfile.sh
 *.o
 *.log
 **/tests/testexec
+*.exe
+**/__pycache__/

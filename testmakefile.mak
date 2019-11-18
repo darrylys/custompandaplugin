@@ -9,7 +9,7 @@
 CXX = g++
 
 # define any compile-time flags
-CXXFLAGS += -O3 -Wall -g $(XTCFLAGS)
+CXXFLAGS += -Wall -g $(XTCFLAGS)
 
 # define any directories containing header files other than /usr/include
 #
@@ -18,7 +18,7 @@ INCLUDES = -I../ $(XTINCLUDES)
 # define library paths in addition to /usr/lib
 #   if I wanted to include libraries not in /usr/lib I'd specify
 #   their path using -Lpath, something like:
-LFLAGS = -L/home/newhall/lib  -L../lib $(XTLIBDIRS)
+LFLAGS = $(XTLIBDIRS)
 
 # define any libraries to link into executable:
 #   if I want to link in libraries (libx.so or libx.a) I use the -llibname 
@@ -34,6 +34,8 @@ LIBS = -lm $(XTLIBS)
 SRCS = $(XTSOURCEDIR)
 #SRCS := $(shell find $(SOURCEDIR) -name '*.cpp')
 
+#OBJSDIR = ./Debug/tests
+
 # define the C object files 
 #
 # This uses Suffix Replacement within a macro:
@@ -42,10 +44,10 @@ SRCS = $(XTSOURCEDIR)
 # Below we are replacing the suffix .c of all words in the macro SRCS
 # with the .o suffix
 #
-OBJS = $(SRCS:.cpp=.o)
+OBJS = $(SRCS:%.cpp=%.o)
 
 # define the executable file 
-MAIN = testexec
+MAIN = testexec.exe
 
 #
 # The following part of the makefile is generic; it can be used to 
@@ -67,8 +69,8 @@ $(MAIN):	$(OBJS)
 # it uses automatic variables $<: the name of the prerequisite of
 # the rule(a .c file) and $@: the name of the target of the rule (a .o file) 
 # (see the gnu make manual section about automatic variables)
-.cpp.o:
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $<  -o $@
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	$(RM) *.o ../*.o *~ ../*~ $(MAIN)
