@@ -6,4 +6,4 @@ outfile.sh
 .codelite/
 *.o
 *.log
-
+**/tests/testexec
