@@ -548,9 +548,9 @@ int pcbAfterInsnExec(CPUState *env, target_ulong pc)
 	return 0;
 }
 
-int pcbOnVirtMemWrite(
+void pcbOnVirtMemWrite(
     CPUState *env, target_ulong pc, 
-    target_ulong addr, target_ulong size, void *buf) 
+    target_ulong addr, size_t size, uint8_t *buf) 
 {
 #if defined(TARGET_I386)
 	
@@ -562,12 +562,12 @@ int pcbOnVirtMemWrite(
 	isRunningAnalysisWithPid(env) && 			// only allow configured pids
 	isAddrInAnalysisSpace(addr) && 				// check target write address
 	isAddrInAnalysisSpace(pc))) {				// check address of running instruction
-		return 0;
+		return;
 	}
 	
 	if (!soft_check_valid_insn(env, panda_current_asid(env), pc)) {
 		tracer::TrcTrace(env, TRC_BIT_WARN, "pcbOnVirtMemWrite:: invalid insn (pc=%08lx) from qemu", (uint64_t)pc);
-		return 0;
+		return;
 	}
 	
 	tracer::TrcTrace(env, TRC_BIT_DEBUG, ">> pcbOnVirtMemWrite(pc=%lx, addr=%lx, size=%u, buf=%016lx)",
@@ -594,7 +594,7 @@ int pcbOnVirtMemWrite(
 			(uint64_t)pc, (uint64_t)addr, (uint32_t)size);
 
 #endif
-    return 0;
+    return;
 }
 
 void on_cbNtFreeVirtualMemory_enter(CPUState *cpu, 
@@ -932,16 +932,16 @@ void on_call_cb(CPUState *env, target_ulong func) {
  * @param env
  * @param tb
  */
-int on_before_block_exec(CPUState* env, TranslationBlock* tb) {
+void on_before_block_exec(CPUState* env, TranslationBlock* tb) {
 	
 	#if defined(TARGET_I386)
 	
 	if (!isRunningAnalysisWithAsid(env)) {
-		return 0;
+		return;
 	}
 	
 	if (panda_in_kernel(env)) {
-		return 0;
+		return;
 	}
 	
 	//OsiProc* p_proc = get_current_process(env);
@@ -973,7 +973,7 @@ int on_before_block_exec(CPUState* env, TranslationBlock* tb) {
 	
 	#endif
 	
-	return 0;
+	return;
 }
 
 bool readProcFilterConfig(const char* strAsidCsv, const char* strPidCsv, 
@@ -1020,7 +1020,7 @@ void hard_check_os_windows_7_x86() {
 
 bool init_plugin(void * self) 
 {	
-#if defined(TARGET_I386)
+#if defined(TARGET_I386) && !defined(TARGET_X86_64)
 	hard_check_os_windows_7_x86();
 	
 	panda_require("osi");

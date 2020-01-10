@@ -44,14 +44,14 @@ void hard_check_os_windows_7_x86() {
 	assert(soft_check_os_windows_7_x86());
 }
 
-int pcbOnVirtMemWrite(
+void pcbOnVirtMemWrite(
 CPUState *env, target_ulong pc, 
-target_ulong addr, target_ulong size, void *buf) {
+target_ulong addr, size_t size, uint8_t *buf) {
 	
 #if defined(TARGET_I386)
 	
 	if (!userModeAndUserCodeOnly(env, pc)) {
-		return 0;
+		return;
 	}
 	
 	CPUArchState* arch = reinterpret_cast<CPUArchState*>(env->env_ptr);
@@ -66,28 +66,28 @@ target_ulong addr, target_ulong size, void *buf) {
 		target_ulong addrpeb = 0;
 		if (-1 == panda_virtual_memory_read(env, fs + gWindowsOffsets.fs_peb_off, 
 		(uint8_t*)&addrpeb, sizeof(addrpeb))) {
-			return 0;
+			return;
 		}
 		fprintf(gOutputFile, "addrpeb: %016lx\n", (uint64_t)addrpeb);
 		
 		target_ulong addrPebLdrData = 0;
 		if (-1 == panda_virtual_memory_read(env, addrpeb + gWindowsOffsets.peb_pebldrdata_off, 
 		(uint8_t*)&addrPebLdrData, sizeof(addrPebLdrData))) {
-			return 0;
+			return;
 		}
 		fprintf(gOutputFile, "addrPebLdrData: %016lx\n", (uint64_t)addrPebLdrData);
 		
 		target_ulong addrInLoadOrderModuleList = 0;
 		if (-1 == panda_virtual_memory_read(env, addrPebLdrData + gWindowsOffsets.pebldrdata_inloadordermodulelist_off,
 		(uint8_t*)&addrInLoadOrderModuleList, sizeof(addrInLoadOrderModuleList))) {
-			return 0;
+			return;
 		}
 		fprintf(gOutputFile, "addrInLoadOrderModuleList: %016lx\n", (uint64_t)addrInLoadOrderModuleList);
 		
 		target_ulong sizeOfImage = 0;
 		if (-1 == panda_virtual_memory_read(env, addrInLoadOrderModuleList + gWindowsOffsets.ldrdatatableentry_sizeofimage_off,
 		(uint8_t*)&sizeOfImage, sizeof(sizeOfImage))) {
-			return 0;
+			return;
 		}
 		
 		guestAddrSizeOfImage = addrInLoadOrderModuleList + gWindowsOffsets.ldrdatatableentry_sizeofimage_off;
@@ -107,13 +107,13 @@ target_ulong addr, target_ulong size, void *buf) {
 	
 #endif
 	
-	return 0;
+	return;
 }
 
-int pcbOnVirtMemRead(
+void pcbOnVirtMemRead(
 CPUState *env, target_ulong pc, 
-target_ulong addr, target_ulong size) {
-	return 0; // do nothing.
+target_ulong addr, size_t size) {
+	return; // do nothing.
 }
 	
 

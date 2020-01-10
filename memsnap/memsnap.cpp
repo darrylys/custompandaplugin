@@ -59,9 +59,9 @@ std::set<prog_point> tap_points;
 
 bool done = false;
 
-int mem_callback(CPUState *env, target_ulong pc, target_ulong addr,
-                       target_ulong size, void *buf) {
-    if(done) return 1;
+void mem_callback(CPUState *env, target_ulong pc, target_ulong addr,
+                       size_t size, uint8_t *buf) {
+    if(done) return;
 
     prog_point p = {};
 
@@ -79,7 +79,7 @@ int mem_callback(CPUState *env, target_ulong pc, target_ulong addr,
     
     if (tap_points.empty()) done = true;
 
-    return 1;
+    return;
 }
 
 bool init_plugin(void *self) {

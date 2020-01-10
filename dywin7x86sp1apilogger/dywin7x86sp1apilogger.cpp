@@ -213,7 +213,7 @@ WIN_PE* get_win_pe(CPUState* cpu, MEM& mem, target_ulong base_dll) {
  *    from EAX, and dump it.
  * 
  */
-int before_block_exec(CPUState *cpu, TranslationBlock *tb) {
+void before_block_exec(CPUState *cpu, TranslationBlock *tb) {
 #if defined(TARGET_I386)
 
     target_ulong asid = panda_current_asid(cpu);
@@ -237,7 +237,7 @@ int before_block_exec(CPUState *cpu, TranslationBlock *tb) {
 
             // ignore if fs_tid == 0
             if (fs_tid == 0) {
-                return 0;
+                return;
             }
 
             // check return address
@@ -456,7 +456,7 @@ int before_block_exec(CPUState *cpu, TranslationBlock *tb) {
                             fprintf(gDebugFile, " - [ERROR] unable to read stack address (0x%lx) for return value",
                                     (uint64_t) esp);
                             fflush(gDebugFile);
-                            return 0;
+                            return;
                         }
 
                         // TODO: call API here:
@@ -504,7 +504,7 @@ int before_block_exec(CPUState *cpu, TranslationBlock *tb) {
 
 #endif
 
-    return 0;
+    return;
 }
 
 bool init_plugin(void * self) {

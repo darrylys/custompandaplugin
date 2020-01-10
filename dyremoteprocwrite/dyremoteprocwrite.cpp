@@ -643,11 +643,11 @@ uint32_t SectionHandle, uint32_t DesiredAccess, uint32_t ObjectAttributes) {
 }
 
 // handle individual writes to the mapped sections.
-int virt_mem_before_write(CPUState *env, target_ulong pc, target_ulong addr, target_ulong size, void *buf) {
+void virt_mem_before_write(CPUState *env, target_ulong pc, target_ulong addr, size_t size, uint8_t *buf) {
 	#if defined(TARGET_I386)
 	
 	if (panda_in_kernel(env)) {
-		return 0;
+		return;
 	}
 	
 	target_ulong current_asid = panda_current_asid(env);
@@ -655,7 +655,7 @@ int virt_mem_before_write(CPUState *env, target_ulong pc, target_ulong addr, tar
 	std::vector < section::SECTION_WRITE_ENTRY > out;
 	bool found = g_section_table.find_all_mapped_sections(current_asid, addr, size, out, env);
 	if (!found) {
-		return 0;
+		return;
 	}
 	
 	uint32_t current_tid = ::get_tid(env);
@@ -676,11 +676,11 @@ int virt_mem_before_write(CPUState *env, target_ulong pc, target_ulong addr, tar
 	}
 	
 	#endif
-	return 0;
+	return;
 }
 
 bool init_plugin(void * self) {
-	#if defined(TARGET_I386)
+	#if defined(TARGET_I386) && !defined(TARGET_X86_64)
 	
 	hard_check_os_windows_7_x86();
 	

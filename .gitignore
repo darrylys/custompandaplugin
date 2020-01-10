@@ -9,3 +9,8 @@ outfile.sh
 **/tests/testexec
 *.exe
 **/__pycache__/
+
+# dynamic changes here
+./ccncxsmt
+./dyevdtntglobalflag
+

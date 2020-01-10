@@ -133,15 +133,15 @@ int mem_callback(CPUState *env, target_ulong pc, target_ulong addr,
     return 1;
 }
 
-int mem_read_callback(CPUState *env, target_ulong pc, target_ulong addr,
-                       target_ulong size, void *buf) {
-    return mem_callback(env, pc, addr, size, buf, false);
+void mem_read_callback(CPUState *env, target_ulong pc, target_ulong addr,
+                       size_t size, uint8_t *buf) {
+    mem_callback(env, pc, addr, size, buf, false);
 
 }
 
-int mem_write_callback(CPUState *env, target_ulong pc, target_ulong addr,
-                       target_ulong size, void *buf) {
-    return mem_callback(env, pc, addr, size, buf, true);
+void mem_write_callback(CPUState *env, target_ulong pc, target_ulong addr,
+                       size_t size, uint8_t *buf) {
+    mem_callback(env, pc, addr, size, buf, true);
 }
 
 bool init_plugin(void *self) {

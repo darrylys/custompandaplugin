@@ -51,10 +51,10 @@ void logCheckNopWindow(uint64_t pc, int nopN, int nopWindowSize) {
 	}
 }
 
-int pcbAfterBlockTranslate(CPUState* cpu, TranslationBlock* tb) {
+void pcbAfterBlockTranslate(CPUState* cpu, TranslationBlock* tb) {
 	
 	if (!userModeAndUserCodeOnly(cpu, tb->pc)) {
-		return 0;
+		return;
 	}
 	
 	target_ulong pc = tb->pc;
@@ -62,7 +62,7 @@ int pcbAfterBlockTranslate(CPUState* cpu, TranslationBlock* tb) {
 	
 	std::vector<uint8_t> buf(size+10);
 	if (-1 == panda_virtual_memory_read(cpu, pc, &buf[0], (int)size)) {
-		return 0;
+		return;
 	}
 	
 	bool lastInsnIsNop = false;
@@ -95,7 +95,7 @@ int pcbAfterBlockTranslate(CPUState* cpu, TranslationBlock* tb) {
 	
 	cs_free(insn, insn_count);
 	
-	return 0;
+	return;
 }
 
 bool soft_check_os_windows_7_x86() {

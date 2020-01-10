@@ -55,19 +55,18 @@ int mem_read_callback(CPUState *env, target_ulong pc, target_ulong addr, target_
 uint64_t bytes_read, bytes_written;
 uint64_t num_reads, num_writes;
 
-int mem_write_callback(CPUState *env, target_ulong pc, target_ulong addr,
-                       target_ulong size, void *buf) {
+void mem_write_callback(CPUState *env, target_ulong pc, target_ulong addr,
+                       size_t size, uint8_t *buf) {
     bytes_written += size;
     num_writes++;
-
-    return 1;
+    
 }
 
-int mem_read_callback(CPUState *env, target_ulong pc, target_ulong addr,
-                       target_ulong size, void *buf) {
+void mem_read_callback(CPUState *env, target_ulong pc, target_ulong addr,
+                       size_t size, uint8_t *buf) {
     bytes_read += size;
     num_reads++;
-    return 1;
+    
 }
 
 bool init_plugin(void *self) {

@@ -1,18 +1,14 @@
 #define __STDC_FORMAT_MACROS
-#define PLUGIN_MAIN
-
-#include "Windows_7_x86_prototypes_fixed_for_panda.txt.trc.h.dump.h"
 
 #include "panda/plugin.h"
 #include "panda/plugin_plugin.h"
-
 #include "osi/osi_types.h"
 #include "osi/osi_ext.h"
-
 #include "wintrospection/wintrospection.h"
 #include "wintrospection/wintrospection_ext.h"
-
 #include "syscalls2/generated/syscalls_ext_typedefs.h"
+
+#include "Windows_7_x86_prototypes_fixed_for_panda.txt.trc.h.dump.h"
 
 #include "panda/rr/rr_log.h"
 #include "panda/rr/rr_log_all.h"
@@ -40840,7 +40836,7 @@ void on_cb_unknown_return(CPUState *cpu, target_ulong pc, target_ulong callno) {
 
 
 bool init_plugin(void *self) {
-#ifdef TARGET_I386
+#if defined(TARGET_I386) && !defined(TARGET_X86_64)
     outFile = fopen("sysmon1.txt", "w");
     if (!outFile) {
         printf("Error opening file sysmon1.txt for output");
