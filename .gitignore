@@ -9,6 +9,7 @@ outfile.sh
 **/tests/testexec
 *.exe
 **/__pycache__/
+Makefile
 
 # dynamic changes here
 ./ccncxsmt
