@@ -8,8 +8,8 @@
 #include "osi/osi_ext.h"
 
 #include <functional>
-#include "callstack_instr/callstack_instr.h"
-#include "callstack_instr/callstack_instr_ext.h"
+#include "my_callstack_instr/my_callstack_instr.h"
+#include "my_callstack_instr/my_callstack_instr_ext.h"
 
 #include "asidstory/asidstory.h"
 
@@ -692,8 +692,8 @@ bool init_plugin(void * self) {
 	assert(init_syscalls2_api());
 	panda_require("wintrospection");
 	assert(init_wintrospection_api());
-	panda_require("callstack_instr");
-	assert(init_callstack_instr_api());
+	panda_require("my_callstack_instr");
+	assert(init_my_callstack_instr_api());
 	panda_require("win7x86intro");
 	assert(init_win7x86intro_api());
 	panda_require("asidstory");

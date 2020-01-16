@@ -7,8 +7,8 @@
 #include "osi/osi_ext.h"
 
 #include <functional> // required for callstack_instr.h prog_point if __cplusplus is defined
-#include "callstack_instr/callstack_instr.h"
-#include "callstack_instr/callstack_instr_ext.h"
+#include "my_callstack_instr/my_callstack_instr.h"
+#include "my_callstack_instr/my_callstack_instr_ext.h"
 
 #include "wintrospection/wintrospection.h"
 #include "wintrospection/wintrospection_ext.h"
@@ -39,6 +39,7 @@
 #include "AnalysisEngine.h"
 #include "win7objecttypes.h"
 #include "Tracer.h"
+#include "TracerTime.h"
 #include "miscfunc.h"
 
 #include <capstone/capstone.h>
@@ -230,7 +231,7 @@ public:
 		
 		uint32_t nfunc = 0;
 		std::vector < target_ulong > vbuf(n_fn);
-		nfunc = ::get_functions(&vbuf[0], (uint32_t)n_fn, 
+		nfunc = ::my_get_functions(&vbuf[0], (uint32_t)n_fn, 
 				reinterpret_cast < CPUState* > (env));
 		
 		for (uint32_t i = 0; i < nfunc; ++i) {
@@ -246,7 +247,7 @@ public:
 		
 		uint32_t ncaller = 0;
 		std::vector < target_ulong > vbuf(n_cl);
-		ncaller = ::get_callers(&vbuf[0], (uint32_t)n_cl, 
+		ncaller = ::my_get_callers(&vbuf[0], (uint32_t)n_cl, 
 				reinterpret_cast < CPUState* > (env));
 		
 		for (uint32_t i = 0; i < ncaller; ++i) {
@@ -258,7 +259,7 @@ public:
 	
 	bool get_program_point(void* env, PROGRAM_POINT& out) {
 		prog_point pp = {0};
-		::get_prog_point(reinterpret_cast < CPUState* > (env), &pp);
+		::my_get_prog_point(reinterpret_cast < CPUState* > (env), &pp);
 		
 		out.caller = pp.caller;
 		//out.cr3 = pp.cr3;
@@ -393,7 +394,7 @@ bool isRunningExecutionAnalysis(CPUState* env, uint64_t pc) {
 bool pcbBeforeInsnTranslate_MarkNewInsn(CPUState *env, target_ulong pc) 
 {
 	#if defined(TARGET_I386)
-	if (!(isRunningAnalysisWithAsid(env) && isRunningAnalysisWithPid(env) && isAddrInAnalysisSpace(pc))) {
+	if (!isRunningAnalysisWithAsid(env) || !isRunningAnalysisWithPid(env) || !isAddrInAnalysisSpace(pc)) {
 		return false;
 	}
 	
@@ -417,7 +418,7 @@ bool pcbBeforeInsnTranslate(CPUState *env, target_ulong pc)
 {
 #if defined(TARGET_I386)
 
-	if (!(isRunningAnalysisWithAsid(env) && isRunningAnalysisWithPid(env) && isAddrInAnalysisSpace(pc))) {
+	if (!isRunningAnalysisWithAsid(env) || !isRunningAnalysisWithPid(env) || !isAddrInAnalysisSpace(pc)) {
 		return false;
 	}
 	
@@ -430,6 +431,8 @@ bool pcbBeforeInsnTranslate(CPUState *env, target_ulong pc)
 				"code at address 0x%lx\n", (uint64_t)pc);
 
     } else {
+		tracer::TrcMarkStartTime(TRACERID_TIME__CAPSTONE_INSN_DISASM);
+		
         // just disassemble 1 instruction.
         cs_insn * insn;
         size_t count = cs_disasm(gCapstoneHandle, buf, sizeof(buf), pc, 1, &insn);
@@ -441,6 +444,8 @@ bool pcbBeforeInsnTranslate(CPUState *env, target_ulong pc)
 					"semble code at address 0x%lx\n", (uint64_t)pc);
             
         }
+		
+		tracer::TrcMarkEndTime(TRACERID_TIME__CAPSTONE_INSN_DISASM);
     }
 	
 	// for some reason, sometimes, the given pc is simply wrong,
@@ -451,6 +456,8 @@ bool pcbBeforeInsnTranslate(CPUState *env, target_ulong pc)
 		gIsValidInsn[valid_key] = false;
 		return false;
 	}
+	
+	tracer::TrcMarkStartTime(TRACERID_TIME__BEFORE_INSN_TRANSLATE);
 	
 	gIsValidInsn[valid_key] = true;
 	
@@ -468,6 +475,8 @@ bool pcbBeforeInsnTranslate(CPUState *env, target_ulong pc)
 	
 	int ret = gPtrEngine->onBeforeInsnTranslate(env_param, ins_param, env);
 	tracer::TrcTrace(env, TRC_BIT_DEBUG, "<< pcbBeforeInsnTranslate(): returns %d", ret);
+	
+	tracer::TrcMarkEndTime(TRACERID_TIME__BEFORE_INSN_TRANSLATE);
 	
     return ret > 0;
 #endif
@@ -505,9 +514,11 @@ int pcbBeforeInsnExec(CPUState *env, target_ulong pc)
 #if defined(TARGET_I386)
 	
 	// dunno why, but this somehow fixed the segfault issue.
-	if (!(isRunningAnalysisWithAsid(env) && isRunningAnalysisWithPid(env) && isAddrInAnalysisSpace(pc))) {
+	if (!isRunningAnalysisWithAsid(env) || !isRunningAnalysisWithPid(env) || !isAddrInAnalysisSpace(pc)) {
 		return 0;
 	}
+	
+	tracer::TrcMarkStartTime(TRACERID_TIME__BEFORE_INSN_EXEC);
 	
 	// use hard check here because if translate returns false, it shouldn't invoke this function at all.
 	hard_check_valid_insn(env, panda_current_asid(env), pc);
@@ -531,6 +542,7 @@ int pcbBeforeInsnExec(CPUState *env, target_ulong pc)
 	
 	tracer::TrcTrace(env, TRC_BIT_DEBUG, "<< pcbBeforeInsnExec(%lx)", (uint64_t)pc);
 	
+	tracer::TrcMarkEndTime(TRACERID_TIME__BEFORE_INSN_EXEC);
 	
 #endif
     return 0;
@@ -558,10 +570,10 @@ void pcbOnVirtMemWrite(
 	// as long as the current Asid, PID are within analysis targets and write address
 	// is within analysis address range
 	// after contemplation, just force analysis only on assigned addresses
-	if (!(isRunningAnalysisWithAsid(env) && 	// only allow configured asids
-	isRunningAnalysisWithPid(env) && 			// only allow configured pids
-	isAddrInAnalysisSpace(addr) && 				// check target write address
-	isAddrInAnalysisSpace(pc))) {				// check address of running instruction
+	if (!isRunningAnalysisWithAsid(env) || 	// only allow configured asids
+	!isRunningAnalysisWithPid(env) || 			// only allow configured pids
+	!isAddrInAnalysisSpace(addr) || 				// check target write address
+	!isAddrInAnalysisSpace(pc)) {				// check address of running instruction
 		return;
 	}
 	
@@ -569,6 +581,8 @@ void pcbOnVirtMemWrite(
 		tracer::TrcTrace(env, TRC_BIT_WARN, "pcbOnVirtMemWrite:: invalid insn (pc=%08lx) from qemu", (uint64_t)pc);
 		return;
 	}
+	
+	tracer::TrcMarkStartTime(TRACERID_TIME__VIRT_BEFORE_MEM_WRITE);
 	
 	tracer::TrcTrace(env, TRC_BIT_DEBUG, ">> pcbOnVirtMemWrite(pc=%lx, addr=%lx, size=%u, buf=%016lx)",
 			(uint64_t)pc, (uint64_t)addr, (uint32_t)size, (uint64_t)(*(reinterpret_cast<uint64_t*>(buf))));
@@ -592,7 +606,9 @@ void pcbOnVirtMemWrite(
 	
 	tracer::TrcTrace(env, TRC_BIT_DEBUG, "<< pcbOnVirtMemWrite(pc=%lx, addr=%lx, size=%u)",
 			(uint64_t)pc, (uint64_t)addr, (uint32_t)size);
-
+	
+	tracer::TrcMarkEndTime(TRACERID_TIME__VIRT_BEFORE_MEM_WRITE);
+	
 #endif
     return;
 }
@@ -786,9 +802,11 @@ void on_call_cb(CPUState *env, target_ulong func) {
 		return;
 	}
 	
+	tracer::TrcMarkStartTime(TRACERID_TIME__BEFORE_CALLER_ANALYSIS);
+	
 	// check caller. Only interested in API calls that are called from module.
 	prog_point pp = {0};
-	get_prog_point(env, &pp);
+	my_get_prog_point(env, &pp);
 	
 	if (tracer::IsTrcActive(TRC_BIT_DEBUG)) {
 	
@@ -799,7 +817,7 @@ void on_call_cb(CPUState *env, target_ulong func) {
 		target_ulong callers[CALLER_SIZE]; // results in same as the prev.
 		::memset(callers, 0, sizeof(callers));
 		
-		uint32_t ncallers = ::get_callers(callers, CALLER_SIZE, env);
+		uint32_t ncallers = ::my_get_callers(callers, CALLER_SIZE, env);
 		tracer::TrcTrace(env, TRC_BIT_DEBUG, ">>>> callers (n=%d):", ncallers);
 		for (uint32_t i=0; i<ncallers; ++i) {
 			tracer::TrcTrace(env, TRC_BIT_DEBUG, " [%d]=%08lx", i, callers[i]);
@@ -841,6 +859,8 @@ void on_call_cb(CPUState *env, target_ulong func) {
 		}
 	}
 	
+	tracer::TrcMarkEndTime(TRACERID_TIME__BEFORE_CALLER_ANALYSIS);
+	
 	if (gOnlyRecordAPIsFromModule) {
 		if (!fApiCalledFromModule) {
 			return;
@@ -877,6 +897,9 @@ void on_call_cb(CPUState *env, target_ulong func) {
 		
 	}
 	*/
+	
+	tracer::TrcMarkStartTime(TRACERID_TIME__CALLER_ANALYSIS);
+	
 	if (fApiCalledFromModule) {
 		assert(lastInsnAddr > 0);
 		tracer::TrcTrace(env, TRC_BIT_INFO, "detect potential api call to library: caller va: "
@@ -917,6 +940,8 @@ void on_call_cb(CPUState *env, target_ulong func) {
 		
 	}
 	
+	tracer::TrcMarkEndTime(TRACERID_TIME__CALLER_ANALYSIS);
+	
 	#endif
 }
 
@@ -928,6 +953,10 @@ void on_call_cb(CPUState *env, target_ulong func) {
  * callback because on_call in callstack plugin is called in after_block_exec. Strangely,
  * the address given does not correspond to the first address of function, but the return
  * address after function is executed. This is useless.
+ * 
+ * This function seems to be the slowest, due to the fact that this function executes although
+ * the code is executing in library code because I want to count the number of API calls in each
+ * execution range!
  * 
  * @param env
  * @param tb
@@ -943,6 +972,8 @@ void on_before_block_exec(CPUState* env, TranslationBlock* tb) {
 	if (panda_in_kernel(env)) {
 		return;
 	}
+	
+	tracer::TrcMarkStartTime(TRACERID_TIME__BEFORE_BLOCK_EXEC);
 	
 	//OsiProc* p_proc = get_current_process(env);
 	//OsiThread* p_thread = get_current_thread(env);
@@ -970,6 +1001,8 @@ void on_before_block_exec(CPUState* env, TranslationBlock* tb) {
 	
 	InsnKey lastInsnKey = createLastInsnKey(panda_current_asid(env), ::get_tid(env));
 	gLastInsnBBHeadExec[lastInsnKey] = tb->pc;
+	
+	tracer::TrcMarkEndTime(TRACERID_TIME__BEFORE_BLOCK_EXEC);
 	
 	#endif
 	
@@ -1029,8 +1062,8 @@ bool init_plugin(void * self)
 	assert(init_syscalls2_api());
 	panda_require("wintrospection");
 	assert(init_wintrospection_api());
-	panda_require("callstack_instr");
-	assert(init_callstack_instr_api());
+	panda_require("my_callstack_instr");
+	assert(init_my_callstack_instr_api());
 	panda_require("win7x86intro");
 	assert(init_win7x86intro_api());
 	panda_require("dyremoteprocwrite"); // callbacks for writes to remote processes
@@ -1129,6 +1162,10 @@ bool init_plugin(void * self)
 		return false;
 	}
 	
+	// After removing all callbacks, it is still slow. Thus, 
+	// the plugin that makes this slow, is not these codes!
+	// Ok, the problem plugin is discovered, it is the callstack_instr.
+	// after that is removed, the plugin runs fast (~2sec / 1%)
     panda_cb pcb;
     pcb.virt_mem_before_write = pcbOnVirtMemWrite;
     panda_register_callback(self, PANDA_CB_VIRT_MEM_BEFORE_WRITE, pcb);
@@ -1157,7 +1194,8 @@ bool init_plugin(void * self)
     //panda_register_callback(self, PANDA_CB_AFTER_BLOCK_TRANSLATE, pcb);
 	
 	tracer::TrcInit(G_PLUGIN_NAME ".debug.log", 
-			/*TRC_BIT_DEBUG |*/ TRC_BIT_INFO | TRC_BIT_WARN | TRC_BIT_ERROR, &g_trc_env);
+			/*TRC_BIT_DEBUG | TRC_BIT_INFO | TRC_BIT_WARN | TRC_BIT_ERROR |*/ TRC_BIT_TIMER, 
+			&g_trc_env);
 	
     return true;
 
@@ -1180,6 +1218,8 @@ void uninit_plugin(void * self)
 	}
     
 	delete gPtrEngine;
+	
+	tracer::TrcMarkPrintTimes();
 	tracer::TrcClose();
 	
 #endif

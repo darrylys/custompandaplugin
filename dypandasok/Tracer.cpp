@@ -1,9 +1,11 @@
 #include "Tracer.h"
 #include <cstdio>
 #include <cstdarg>
+#include <ctime>
 
 #define TRC_MAX_BUFFER (256)
 #define ERR_MAX_BUFFER (1024)
+#define MAX_TIMEARR (1<<16)
 
 namespace tracer {
 	
@@ -11,6 +13,41 @@ namespace tracer {
 	uint32_t g_active_trc_bits = 0;
 	bool is_initialized = false;
 	ITrcEnv* p_trc_env = NULL;
+	
+	typedef struct _TIN {
+		uint32_t count;
+		uint64_t sum_ms;
+		clock_t start_ms;
+	} TIN;
+	TIN timeArr[MAX_TIMEARR];
+	
+	const char * id2str(uint32_t id) {
+		switch (id) {
+			case TRACERID_TIME__BEFORE_BLOCK_EXEC:
+			return "before_block_exec";
+			break;
+			
+			case TRACERID_TIME__BEFORE_INSN_EXEC:
+			return "before_insn_exec";
+			break;
+			
+			case TRACERID_TIME__VIRT_BEFORE_MEM_WRITE:
+			return "virt_before_mem_write";
+			break;
+			
+			case TRACERID_TIME__BEFORE_INSN_TRANSLATE:
+			return "before_insn_translate";
+			break;
+			
+			case TRACERID_TIME__CAPSTONE_INSN_DISASM:
+			return "capstone_insn_disasm";
+			break;
+			
+			default:
+			return "other";
+			break;
+		}
+	}
 	
 	void TrcInit(const char * debug_file_name, uint32_t active_trc_bits, ITrcEnv* p_env) {
 		if (!is_initialized) {
@@ -75,6 +112,38 @@ namespace tracer {
 			va_start (args, format);
 			VaTrcTrace(p, trc_bit, format, args);
 			va_end (args);
+		}
+	}
+	
+	void TrcMarkStartTime(uint32_t code) {
+		if (IsTrcActive(TRC_BIT_TIMER)) {
+			timeArr[code].start_ms = clock();
+		}
+	}
+	
+	void TrcMarkEndTime(uint32_t code) {
+		if (IsTrcActive(TRC_BIT_TIMER)) {
+			TIN& tin = timeArr[code];
+			uint64_t elapsed = clock() - tin.start_ms;
+			tin.count += 1;
+			tin.sum_ms += elapsed;
+			tin.start_ms = clock();		
+		}
+	}
+	
+	inline void TrcMarkPrintTime(uint32_t code) {
+		fprintf(g_debug_file, "[%d], %s = {\"count\": %d, \"sum (s)\": %lu, \"avg (s)\": %lf}\n", 
+				code, id2str(code), timeArr[code].count, timeArr[code].sum_ms, 
+				(double)timeArr[code].sum_ms / timeArr[code].count / (double)CLOCKS_PER_SEC);
+	}
+	
+	void TrcMarkPrintTimes() {
+		if (IsTrcActive(TRC_BIT_TIMER)) {
+			for (uint32_t i = 0; i < MAX_TIMEARR; ++i) {
+				if (timeArr[i].count > 0) {
+					TrcMarkPrintTime(i);
+				}
+			}
 		}
 	}
 	

@@ -1,8 +1,8 @@
 #include "proc_util.h"
 
 #include <functional>
-#include "callstack_instr/callstack_instr.h"
-#include "callstack_instr/callstack_instr_ext.h"
+#include "my_callstack_instr/my_callstack_instr.h"
+#include "my_callstack_instr/my_callstack_instr_ext.h"
 
 #include "osi/osi_types.h"
 #include "osi/osi_ext.h"

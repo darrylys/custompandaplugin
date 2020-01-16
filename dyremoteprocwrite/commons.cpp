@@ -4,8 +4,8 @@
 #include <assert.h>
 
 #include <functional>
-#include "callstack_instr/callstack_instr.h"
-#include "callstack_instr/callstack_instr_ext.h"
+#include "my_callstack_instr/my_callstack_instr.h"
+#include "my_callstack_instr/my_callstack_instr_ext.h"
 
 #include "osi/osi_types.h"
 #include "osi/osi_ext.h"
@@ -93,7 +93,7 @@ target_ulong get_tid(CPUState* env) {
 target_ulong find_caller_in_process_module(CPUState* env) {
 	target_ulong module_pc = panda_current_pc(env);
 	target_ulong callers[MAX_CALLERS];
-	uint32_t n_callers = ::get_callers(callers, MAX_CALLERS, env);
+	uint32_t n_callers = ::my_get_callers(callers, MAX_CALLERS, env);
 	for (uint32_t i = 0; i < n_callers; ++i) {
 		if (callers[i] < DLL_BASE) {
 			module_pc = callers[i];

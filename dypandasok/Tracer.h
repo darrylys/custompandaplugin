@@ -3,11 +3,13 @@
 
 #include <stdint.h>
 #include <cstdlib> // NULL 
+#include "TracerTime.h"
 
 #define TRC_BIT_ERROR 	(1)
 #define TRC_BIT_WARN	(1 << 1)
 #define TRC_BIT_INFO	(1 << 2)
 #define TRC_BIT_DEBUG	(1 << 3)
+#define TRC_BIT_TIMER	(1 << 4)
 
 namespace tracer {
 	
@@ -49,6 +51,12 @@ namespace tracer {
 	void TrcTrace(void* p, uint32_t trc_bit, const char * format, ...);
 	
 	void ErrTrace(void* p, const char* file, uint32_t line, uint32_t err_code, const char * format, ...);
+	
+	void TrcMarkStartTime(uint32_t code);
+	
+	void TrcMarkEndTime(uint32_t code);
+	
+	void TrcMarkPrintTimes();
 	
 	void TrcClose();
 	
