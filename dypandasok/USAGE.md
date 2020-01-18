@@ -17,9 +17,11 @@ Dependencies
 ------------
 
 Library:
+--------
 	`capstone` disassembler
 	
 Plugins:
+--------
 	osi
 	syscalls2				: For hooking on memory manipulation system calls
 	wintrospection
@@ -29,6 +31,7 @@ Plugins:
 	dywin7x86sp1apilogger
 
 Generator script python modules:
+--------------------------------
 	python 3
     pydot
     graphviz
@@ -59,7 +62,7 @@ Example
 		-replay obsidium1250f \
 		-m 2G \
 		-monitor stdio \
-		-panda 'callstack_instr:stack_type=asid' \
+		-panda 'my_callstack_instr:prog_list=pid-int(|pid-int)*' \
 		-panda 'syscalls2' \
 		-panda dyremoteprocwrite \
 		-panda dywin7x86sp1apilogger:apicsv=/home/.../panda/plugins/dywin7x86sp1apilogger/res/db-fn.csv,typecsv=/home/.../panda/plugins/dywin7x86sp1apilogger/res/db-types.csv,use_as_db=true' \
