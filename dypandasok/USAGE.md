@@ -23,7 +23,7 @@ Plugins:
 	osi
 	syscalls2				: For hooking on memory manipulation system calls
 	wintrospection
-	callstack_instr
+	my_callstack_instr		: A little enhancement over callstack_instr to allow analyzing only on some asids / pids.
 	win7x86intro
 	dyremoteprocwrite		: Monitoring remote write
 	dywin7x86sp1apilogger

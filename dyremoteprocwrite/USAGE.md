@@ -16,7 +16,7 @@ This plugin depends on the following plugins:
 	osi
 	syscalls2
 	wintrospection
-	callstack_instr
+	my_callstack_instr
 	win7x86intro
 	asidstory
 
