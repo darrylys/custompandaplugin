@@ -40,8 +40,6 @@ For Windows:
 
 Sample Output
 -------------
-
-New bufmon output:
     A 1d659000 --> 07f9b000 (Asid changes `old_asid`, `new_asid`)
     R 78551462 p.caller=77347525 p.pc=7733f5f0 p.cr3=07f9b000 addr=0040003c size=00000004 pid=892 tid=1572 in_kernel=0 pc=7733f5f0 current_asid=07f9b000 f0 00 00 00 | . . . . (Read operations)
     W 79441062 p.caller=77344e8e p.pc=7733f854 p.cr3=07f9b000 addr=0040209c size=00000004 pid=892 tid=1572 in_kernel=0 pc=7733f854 current_asid=07f9b000 10 09 f9 6c | . . . l (Write operations)
